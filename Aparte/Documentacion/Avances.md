@@ -29,3 +29,11 @@ En este dia se llevo a cabo la busqueda los chips / stickers NFC en el centro de
 Debido a esto se tomo la desicion de comprarlos por internet en una distribuidora de electronicos en Bogota, estos requieren un pedido de minimo $20,000 pesos y el envio cuesta $15,900, se pediran 10 tarjetas NFC configurables mediante la pagina [Electronilab](https://electronilab.co/) se hara un pedido de 10 [Tarjeta NFC de Proximidad RFID 13.56 MHz NTAG216 85.5X54mm](https://electronilab.co/tienda/tarjeta-nfc-de-proximidad-rfid-13-56-mhz-ntag216-85-5x54mm/).
 
 Mientras llegan los dispositivos para hacer la prueba se ira realizando el desarrollo FrontEnd.
+
+#### Miercoles (15)
+
+El dia miercoles se realizo la compra de las tarjetas NFC, este dia no se adelanto mas.
+
+#### Jueves (16)
+
+Este dia las tarjetas llegaron a Neiva y estan esperando para ser repartidas por el distribuidor local, a las 9.20 a.m. se llevo a cabo una reunion para repartir desarrollo FrontEnd en base al MockUp propuesto por la clase anterior, ademas de esto se creo el repositorio para llevar un control de versiones y para el trabajo colaborativo (se creo el archivo [Config.md](./Config.md) en el que estan los comandos para inizialisar el repositorio)
