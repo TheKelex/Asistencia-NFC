@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVP · Asistencia NFC</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#12181B;
+  --panel:#1B2226;
+  --panel-2:#212A2F;
+  --ink:#E9E5DC;
+  --muted:#8B9598;
+  --teal:#2FA88F;
+  --amber:#E8A33D;
+  --red:#C2503F;
+  --line:rgba(233,229,220,0.09);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 20px 60px;}
+
+.top{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:1px solid var(--line);
+  padding-bottom:18px;margin-bottom:22px;flex-wrap:wrap;gap:14px;
+}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--amber);text-transform:uppercase;margin:0 0 6px;
+}
+h1{
+  font-family:'JetBrains Mono',monospace;font-weight:800;font-size:26px;
+  margin:0;letter-spacing:-0.01em;
+}
+.tabs{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px;}
+.tab{
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;
+  padding:9px 16px;border-radius:7px;cursor:pointer;color:var(--muted);
+  border:none;background:transparent;transition:all .15s;
+}
+.tab.active{background:var(--panel-2);color:var(--ink);}
+.tab:hover:not(.active){color:var(--ink);}
+
+.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:24px;margin-bottom:16px;
+}
+.panel h2{
+  font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 18px;
+  display:flex;align-items:center;gap:8px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--muted);display:inline-block;}
+.dot.live{background:var(--teal);box-shadow:0 0 0 0 rgba(47,168,143,.6);animation:pulse 1.6s infinite;}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(47,168,143,.55);}
+  70%{box-shadow:0 0 0 9px rgba(47,168,143,0);}
+  100%{box-shadow:0 0 0 0 rgba(47,168,143,0);}
+}
+
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px;}
+input,select{
+  background:var(--panel-2);border:1px solid var(--line);color:var(--ink);
+  padding:10px 12px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;
+  width:100%;
+}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outline-offset:2px;}
+.field{flex:1;min-width:140px;}
+
+button.primary{
+  background:var(--teal);color:#0C1412;border:none;font-weight:600;
+  padding:12px 20px;border-radius:9px;cursor:pointer;font-size:14px;
+  transition:transform .1s, opacity .15s;
+}
+button.primary:hover{opacity:.9;}
+button.primary:active{transform:scale(.98);}
+button.secondary{
+  background:transparent;color:var(--ink);border:1px solid var(--line);
+  padding:12px 20px;border-radius:9px;cursor:pointer;font-size:14px;
+}
+button.secondary:hover{border-color:var(--muted);}
+button.danger{
+  background:transparent;color:var(--red);border:1px solid var(--red);
+  padding:10px 16px;border-radius:9px;cursor:pointer;font-size:13px;
+}
+button:disabled{opacity:.4;cursor:not-allowed;}
+
+.status-line{
+  font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);
+  display:flex;align-items:center;gap:8px;margin-bottom:16px;
+}
+
+.log{
+  background:#0D1214;border:1px solid var(--line);border-radius:10px;
+  padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12.5px;
+  max-height:280px;overflow-y:auto;
+}
+.log-line{padding:5px 0;border-bottom:1px dashed var(--line);display:flex;justify-content:space-between;gap:10px;}
+.log-line:last-child{border-bottom:none;}
+.log-empty{color:var(--muted);}
+.tag{
+  padding:2px 8px;border-radius:5px;font-size:10.5px;letter-spacing:.04em;
+  text-transform:uppercase;font-weight:700;
+}
+.tag.presente{background:rgba(47,168,143,.15);color:var(--teal);}
+.tag.retardo{background:rgba(232,163,61,.15);color:var(--amber);}
+.tag.ausente{background:rgba(194,80,63,.15);color:var(--red);}
+.tag.manual{background:rgba(139,149,152,.18);color:var(--muted);}
+
+.card-stage{
+  display:flex;flex-direction:column;align-items:center;gap:22px;padding:14px 0 6px;
+}
+.carnet{
+  width:230px;height:145px;border-radius:14px;
+  background:linear-gradient(145deg,#212A2F,#182022);
+  border:1px solid var(--line);
+  padding:16px 18px;position:relative;overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+.carnet::after{
+  content:'';position:absolute;top:-40%;right:-30%;width:180px;height:180px;
+  background:radial-gradient(circle,rgba(232,163,61,.10),transparent 70%);
+}
+.carnet .brand{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--amber);text-transform:uppercase;}
+.carnet .name{font-weight:600;font-size:16px;margin-top:34px;}
+.carnet .doc{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;}
+.carnet .nfc-icon{position:absolute;bottom:14px;right:16px;opacity:.5;}
+
+.wave{position:relative;width:64px;height:64px;}
+.wave-ring{
+  position:absolute;inset:0;border-radius:50%;border:2px solid var(--amber);
+  opacity:0;
+}
+.wave.active .wave-ring{animation:ring 1s ease-out;}
+.wave.active .wave-ring:nth-child(2){animation-delay:.15s;}
+.wave.active .wave-ring:nth-child(3){animation-delay:.3s;}
+@keyframes ring{
+  0%{opacity:.9;transform:scale(.3);}
+  100%{opacity:0;transform:scale(1.9);}
+}
+.wave-core{
+  position:absolute;inset:20px;border-radius:50%;background:var(--panel-2);
+  display:flex;align-items:center;justify-content:center;border:1px solid var(--line);
+}
+
+.select-student{max-width:320px;width:100%;}
+.confirm{
+  font-family:'JetBrains Mono',monospace;font-size:13px;text-align:center;min-height:20px;
+}
+.confirm.ok{color:var(--teal);}
+.confirm.warn{color:var(--amber);}
+.confirm.err{color:var(--red);}
+
+.foot-note{
+  font-size:12px;color:var(--muted);line-height:1.6;border-top:1px solid var(--line);
+  padding-top:16px;margin-top:6px;
+}
+.badge-nfc{
+  font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 7px;border-radius:5px;
+  background:var(--panel-2);color:var(--muted);border:1px solid var(--line);
+}
+@media(max-width:600px){
+  h1{font-size:20px;}
+  .panel{padding:18px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <p class="eyebrow">MVP · Núcleo NFC</p>
+      <h1>Escáner + Carnet</h1>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-view="instructor">Instructor (escáner)</button>
+      <button class="tab" data-view="aprendiz">Aprendiz (carnet)</button>
+    </div>
+  </div>
+
+  <!-- INSTRUCTOR VIEW -->
+  <div id="view-instructor">
+    <div class="panel">
+      <h2><span class="dot" id="session-dot"></span>Sesión de asistencia</h2>
+      <div class="row">
+        <div class="field">
+          <label>Ficha</label>
+          <input id="ficha" value="2758934 · ADSO" />
+        </div>
+        <div class="field">
+          <label>Tolerancia (minutos)</label>
+          <input id="tolerancia" type="number" value="10" min="0" />
+        </div>
+      </div>
+      <div class="status-line" id="session-status">Sesión inactiva. El lector NFC está apagado.</div>
+      <div class="row">
+        <button class="primary" id="btn-start">Iniciar sesión</button>
+        <button class="danger" id="btn-end" disabled>Finalizar sesión</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="dot" id="reader-dot"></span>Usar este dispositivo como lector NFC <span class="badge-nfc" id="reader-support-badge">detectando soporte…</span></h2>
+      <div class="status-line" id="reader-status">Lector físico desactivado. Actívalo para que los aprendices puedan acercar su celular o carnet a este mismo dispositivo.</div>
+      <div class="row">
+        <button class="secondary" id="btn-activar-lector">Activar lector NFC en este dispositivo</button>
+      </div>
+      <div class="foot-note" id="reader-note" style="margin-top:2px;padding-top:0;border-top:none;"></div>
+      <div class="log" id="reader-debug" style="margin-top:12px;max-height:160px;">
+        <div class="log-empty">Registro técnico del lector aparecerá aquí (permisos, eventos NFC, errores).</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Registro en vivo</h2>
+      <div class="log" id="log">
+        <div class="log-empty">Sin registros todavía. Inicia sesión y acerca un carnet desde la pestaña "Aprendiz".</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Registro manual (excepción)</h2>
+      <div class="row">
+        <select class="select-student" id="manual-student"></select>
+        <select id="manual-motivo" class="field">
+          <option value="Olvido del carnet">Olvido del carnet</option>
+          <option value="Daño del carnet">Daño del carnet</option>
+          <option value="Falla del lector NFC">Falla del lector NFC</option>
+        </select>
+        <button class="secondary" id="btn-manual">Registrar manualmente</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APRENDIZ VIEW -->
+  <div id="view-aprendiz" style="display:none;">
+    <div class="panel">
+      <h2>Identificarme</h2>
+      <select class="select-student" id="aprendiz-select"></select>
+    </div>
+
+    <div class="panel">
+      <h2><span class="badge-nfc" id="nfc-support-badge">detectando soporte NFC…</span></h2>
+      <div class="card-stage">
+        <div class="carnet" id="carnet">
+          <div class="brand">SENA · Carnet NFC</div>
+          <div class="name" id="carnet-name">—</div>
+          <div class="doc" id="carnet-doc">—</div>
+          <svg class="nfc-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E9E5DC" stroke-width="1.6">
+            <path d="M4 8a8 8 0 0 1 10 0"/><path d="M6.5 10.5a4.5 4.5 0 0 1 5.5 0"/><circle cx="9" cy="14" r="1.2" fill="#E9E5DC" stroke="none"/>
+          </svg>
+        </div>
+        <div class="wave" id="wave">
+          <div class="wave-ring"></div><div class="wave-ring"></div><div class="wave-ring"></div>
+          <div class="wave-core">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="1.8">
+              <path d="M4 8a8 8 0 0 1 10 0"/><path d="M6.5 10.5a4.5 4.5 0 0 1 5.5 0"/><circle cx="9" cy="14" r="1.2" fill="#E8A33D" stroke="none"/>
+            </svg>
+          </div>
+        </div>
+        <button class="primary" id="btn-tap">Acercar carnet al lector</button>
+        <div class="confirm" id="confirm-msg"></div>
+      </div>
+    </div>
+
+    <div class="foot-note" id="nfc-note"></div>
+  </div>
+
+  <div class="foot-note">
+    Alcance de este MVP: valida únicamente el ciclo <em>escáner activo → tap NFC → clasificación automática (Presente / Retardo) → registro único por sesión</em>. En Chrome para Android sobre HTTPS, el botón "Activar lector NFC en este dispositivo" usa <code>NDEFReader.scan()</code> real, y el botón "Acercar carnet al lector" usa <code>NDEFReader.write()</code> real — es decir, el celular del instructor puede leer de verdad un carnet físico NFC o el celular de un aprendiz que haya escrito su identificador. Lo único fuera de alcance es sincronizar la <em>sesión</em> entre dos páginas abiertas en dos teléfonos distintos (eso sí requeriría un backend), por eso el log de "Registro en vivo" solo refleja lecturas hechas en este mismo dispositivo/pestaña.
+  </div>
+</div>
+
+<script>
+// ---------- Estado en memoria (sin localStorage) ----------
+const students = [
+  {id:'s1', name:'Laura Martínez', doc:'1075846213'},
+  {id:'s2', name:'Julián Rojas',   doc:'1098234567'},
+  {id:'s3', name:'Camila Torres',  doc:'1080345678'},
+  {id:'s4', name:'Andrés Gómez',   doc:'1073456789'},
+];
+
+let session = { active:false, startTime:null, toleranceMin:10, records:{} };
+
+// ---------- Tabs ----------
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const v = t.dataset.view;
+    document.getElementById('view-instructor').style.display = v==='instructor' ? '' : 'none';
+    document.getElementById('view-aprendiz').style.display = v==='aprendiz' ? '' : 'none';
+  });
+});
+
+// ---------- Poblar selects ----------
+function fillSelect(sel, placeholder){
+  sel.innerHTML = `<option value="">${placeholder}</option>` +
+    students.map(s=>`<option value="${s.id}">${s.name} · ${s.doc}</option>`).join('');
+}
+fillSelect(document.getElementById('manual-student'), 'Selecciona aprendiz…');
+fillSelect(document.getElementById('aprendiz-select'), 'Selecciona tu perfil…');
+
+// ---------- Carnet preview ----------
+const aprendizSelect = document.getElementById('aprendiz-select');
+aprendizSelect.addEventListener('change', ()=>{
+  const s = students.find(x=>x.id===aprendizSelect.value);
+  document.getElementById('carnet-name').textContent = s ? s.name : '—';
+  document.getElementById('carnet-doc').textContent = s ? s.doc : '—';
+  document.getElementById('confirm-msg').textContent = '';
+});
+
+// ---------- Sesión: iniciar / finalizar ----------
+const dot = document.getElementById('session-dot');
+const statusLine = document.getElementById('session-status');
+const btnStart = document.getElementById('btn-start');
+const btnEnd = document.getElementById('btn-end');
+
+btnStart.addEventListener('click', ()=>{
+  session.active = true;
+  session.startTime = new Date();
+  session.toleranceMin = parseInt(document.getElementById('tolerancia').value || '10', 10);
+  session.records = {};
+  dot.classList.add('live');
+  statusLine.textContent = `Sesión activa desde ${fmtTime(session.startTime)} · lector NFC habilitado · tolerancia ${session.toleranceMin} min.`;
+  btnStart.disabled = true;
+  btnEnd.disabled = false;
+  renderLog();
+});
+
+btnEnd.addEventListener('click', ()=> endSession('finalizada manualmente por el instructor'));
+
+function endSession(reason){
+  if(!session.active) return;
+  // marcar ausentes
+  students.forEach(s=>{
+    if(!session.records[s.id]){
+      session.records[s.id] = {estado:'Ausente', hora:null, medio:'—'};
+    }
+  });
+  session.active = false;
+  dot.classList.remove('live');
+  statusLine.textContent = `Sesión cerrada (${reason}). Lector NFC deshabilitado.`;
+  btnStart.disabled = false;
+  btnEnd.disabled = true;
+  renderLog();
+}
+
+// ---------- Registro (tap NFC simulado / real) ----------
+function fmtTime(d){ return d.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
+
+function registrar(studentId, medio){
+  const confirmEl = document.getElementById('confirm-msg');
+  const s = students.find(x=>x.id===studentId);
+  if(!s){ confirmEl.textContent='Selecciona tu perfil primero.'; confirmEl.className='confirm err'; return; }
+  if(!session.active){
+    confirmEl.textContent = 'El instructor aún no ha iniciado la sesión.';
+    confirmEl.className = 'confirm err';
+    return;
+  }
+  if(session.records[studentId] && session.records[studentId].estado !== 'Ausente'){
+    confirmEl.textContent = 'Ya registraste tu asistencia en esta sesión.';
+    confirmEl.className = 'confirm err';
+    return;
+  }
+  const now = new Date();
+  const elapsedMin = (now - session.startTime) / 60000;
+  const estado = elapsedMin <= session.toleranceMin ? 'Presente' : 'Retardo';
+  session.records[studentId] = { estado, hora: now, medio, retrasoMin: estado==='Retardo' ? Math.round(elapsedMin - session.toleranceMin) : 0 };
+
+  confirmEl.textContent = estado === 'Presente'
+    ? `Registrado como Presente a las ${fmtTime(now)}.`
+    : `Registrado como Retardo (+${session.records[studentId].retrasoMin} min).`;
+  confirmEl.className = estado === 'Presente' ? 'confirm ok' : 'confirm warn';
+  renderLog();
+}
+
+document.getElementById('btn-tap').addEventListener('click', async ()=>{
+  const studentId = aprendizSelect.value;
+  const wave = document.getElementById('wave');
+  wave.classList.remove('active'); void wave.offsetWidth; wave.classList.add('active');
+
+  // Intento real de Web NFC (solo funcionará en Chrome Android, HTTPS, con hardware NFC)
+  if('NDEFReader' in window){
+    try{
+      const s = students.find(x=>x.id===studentId);
+      const writer = new NDEFReader();
+      await writer.write({records:[{recordType:'text', data: studentId + '|' + (s? s.doc:'')}]});
+    }catch(e){ /* sin hardware o permiso: seguimos con la simulación */ }
+  }
+  registrar(studentId, 'Dispositivo móvil NFC');
+});
+
+// ---------- Lector NFC real en el dispositivo del instructor ----------
+const readerDot = document.getElementById('reader-dot');
+const readerStatus = document.getElementById('reader-status');
+const readerBadge = document.getElementById('reader-support-badge');
+const readerNote = document.getElementById('reader-note');
+const readerDebug = document.getElementById('reader-debug');
+const btnActivarLector = document.getElementById('btn-activar-lector');
+let readerActive = false;
+
+function debugLog(msg, kind){
+  const time = fmtTime(new Date());
+  if(readerDebug.querySelector('.log-empty')) readerDebug.innerHTML = '';
+  const color = kind==='err' ? 'var(--red)' : kind==='ok' ? 'var(--teal)' : 'var(--muted)';
+  const line = document.createElement('div');
+  line.className = 'log-line';
+  line.innerHTML = `<span style="color:${color}">${msg}</span><span style="color:var(--muted)">${time}</span>`;
+  readerDebug.prepend(line);
+}
+
+function nfcSupported(){ return 'NDEFReader' in window; }
+
+if(nfcSupported()){
+  readerBadge.textContent = 'Web NFC disponible';
+  readerNote.textContent = 'Este dispositivo puede leer NFC directamente. Al activarlo, cualquier carnet o celular que se acerque quedará registrado sin pasar por la pestaña "Aprendiz" de esta misma página.';
+  debugLog('NDEFReader detectado en este navegador.', 'ok');
+} else {
+  readerBadge.textContent = 'Web NFC no disponible aquí';
+  readerNote.textContent = 'Este navegador/dispositivo no soporta Web NFC (se necesita Chrome para Android, HTTPS y hardware NFC). El botón queda deshabilitado; usa la simulación desde la pestaña "Aprendiz" en su lugar.';
+  btnActivarLector.disabled = true;
+  debugLog('NDEFReader NO existe en este navegador (¿no es Chrome Android, o falta HTTPS?).', 'err');
+}
+debugLog(`Contexto seguro (HTTPS/localhost): ${window.isSecureContext}`, window.isSecureContext ? 'ok' : 'err');
+
+btnActivarLector.addEventListener('click', async ()=>{
+  if(readerActive) return;
+  debugLog('Solicitando permiso NFC…');
+  try{
+    const reader = new NDEFReader();
+    await reader.scan();
+    readerActive = true;
+    readerDot.classList.add('live');
+    readerStatus.textContent = 'Lector NFC activo en este dispositivo · esperando que acerquen un carnet o celular…';
+    btnActivarLector.textContent = 'Lector activo';
+    btnActivarLector.disabled = true;
+    debugLog('Permiso concedido. scan() iniciado — esperando eventos "reading".', 'ok');
+
+    reader.onreading = (event) => {
+      debugLog(`Evento "reading" recibido. serial=${event.serialNumber || 's/n'}, registros=${event.message.records.length}`, 'ok');
+      let studentId = null;
+      for(const record of event.message.records){
+        debugLog(`Registro NDEF tipo: ${record.recordType}`);
+        if(record.recordType === 'text'){
+          const text = new TextDecoder(record.encoding || 'utf-8').decode(record.data);
+          studentId = text.split('|')[0];
+          break;
+        }
+      }
+      if(!studentId){
+        readerStatus.textContent = `Tag detectado (serial ${event.serialNumber || 'desconocido'}) sin datos de aprendiz asociados.`;
+        return;
+      }
+      const s = students.find(x=>x.id===studentId);
+      if(!s){
+        readerStatus.textContent = `Identificador NFC leído (${studentId}) no corresponde a ningún aprendiz enrolado.`;
+        return;
+      }
+      registrar(studentId, 'Lector NFC del instructor');
+      readerStatus.textContent = `Última lectura: ${s.name} a las ${fmtTime(new Date())}.`;
+    };
+
+    reader.onreadingerror = () => {
+      debugLog('Evento "readingerror": el tag se detectó pero no se pudo leer su contenido.', 'err');
+      readerStatus.textContent = 'Error leyendo el tag NFC. Vuelve a acercarlo.';
+    };
+  }catch(err){
+    debugLog(`scan() falló: ${err.name} — ${err.message}`, 'err');
+    readerStatus.textContent = 'No se pudo activar el lector (permiso denegado o sin hardware NFC en este dispositivo).';
+  }
+});
+
+// ---------- Registro manual ----------
+document.getElementById('btn-manual').addEventListener('click', ()=>{
+  const sel = document.getElementById('manual-student');
+  const motivo = document.getElementById('manual-motivo').value;
+  if(!sel.value){ return; }
+  if(!session.active){ alert('Inicia la sesión antes de registrar manualmente.'); return; }
+  const now = new Date();
+  session.records[sel.value] = { estado:'Presente (manual)', hora:now, medio:`Manual · ${motivo}`, retrasoMin:0 };
+  renderLog();
+  sel.value = '';
+});
+
+// ---------- Log ----------
+function renderLog(){
+  const log = document.getElementById('log');
+  const entries = Object.entries(session.records);
+  if(entries.length === 0){
+    log.innerHTML = '<div class="log-empty">Sin registros todavía. Inicia sesión y acerca un carnet desde la pestaña "Aprendiz".</div>';
+    return;
+  }
+  log.innerHTML = entries
+    .sort((a,b)=> (b[1].hora||0) - (a[1].hora||0))
+    .map(([id, r])=>{
+      const s = students.find(x=>x.id===id);
+      const cls = r.estado.toLowerCase().includes('presente') ? (r.estado.includes('manual') ? 'manual' : 'presente')
+                 : r.estado==='Retardo' ? 'retardo' : 'ausente';
+      const hora = r.hora ? fmtTime(r.hora) : '—';
+      return `<div class="log-line">
+        <span>${s.name}</span>
+        <span style="color:var(--muted)">${r.medio}</span>
+        <span>${hora}</span>
+        <span class="tag ${cls}">${r.estado}</span>
+      </div>`;
+    }).join('');
+}
+
+// ---------- Soporte Web NFC real (informativo) ----------
+const badge = document.getElementById('nfc-support-badge');
+const note = document.getElementById('nfc-note');
+if('NDEFReader' in window){
+  badge.textContent = 'Web NFC disponible en este navegador';
+  note.textContent = 'Este dispositivo soporta Web NFC. Al presionar "Acercar carnet al lector" se intentará una escritura NFC real, además de la simulación en pantalla.';
+} else {
+  badge.textContent = 'Web NFC no disponible — modo simulación';
+  note.textContent = 'Web NFC solo funciona en Chrome para Android sobre HTTPS con hardware NFC. En este dispositivo/navegador el flujo se ejecuta en modo simulación, con la misma lógica de negocio (tolerancia, estados, registro único).';
+}
+</script>
+</body>
+</html>
