@@ -186,6 +186,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     <div class="tabs">
       <button class="tab active" data-view="instructor">Instructor (escáner)</button>
       <button class="tab" data-view="aprendiz">Aprendiz (carnet)</button>
+      <button class="tab" data-view="enrolamiento">Enrolamiento NFC</button>
     </div>
   </div>
 
@@ -277,6 +278,29 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     <div class="foot-note" id="nfc-note"></div>
   </div>
 
+  <!-- ENROLAMIENTO VIEW -->
+  <div id="view-enrolamiento" style="display:none;">
+    <div class="panel">
+      <h2>Escribir carnet NFC de un estudiante</h2>
+      <div class="status-line">Este paso se hace una única vez por aprendiz: graba su nombre y documento en un tag NFC en blanco (o en el chip de un carnet reescribible). Ese mismo tag es el que luego se usa para registrar asistencia en las pestañas Instructor / Aprendiz.</div>
+      <div class="row">
+        <select class="select-student" id="enroll-select"></select>
+        <button class="secondary" id="btn-write-tag">Escribir en tag NFC</button>
+      </div>
+      <div class="confirm" id="enroll-confirm"></div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="badge-nfc" id="enroll-support-badge">detectando soporte…</span></h2>
+      <div class="log" id="enroll-debug">
+        <div class="log-empty">El registro técnico de la escritura NFC aparecerá aquí.</div>
+      </div>
+      <div class="foot-note" style="margin-top:12px;padding-top:0;border-top:none;">
+        El formato grabado es texto plano <code>idInterno|documento</code> (por ejemplo <code>s1|1075846213</code>), el mismo que ya interpreta el lector del instructor. Si el tag ya tenía datos de otro estudiante, esta escritura los reemplaza — en una versión posterior conviene leer primero el tag y pedir confirmación antes de sobrescribir (ver RF-24 del documento original).
+      </div>
+    </div>
+  </div>
+
   <div class="foot-note">
     Alcance de este MVP: valida únicamente el ciclo <em>escáner activo → tap NFC → clasificación automática (Presente / Retardo) → registro único por sesión</em>. En Chrome para Android sobre HTTPS, el botón "Activar lector NFC en este dispositivo" usa <code>NDEFReader.scan()</code> real, y el botón "Acercar carnet al lector" usa <code>NDEFReader.write()</code> real — es decir, el celular del instructor puede leer de verdad un carnet físico NFC o el celular de un aprendiz que haya escrito su identificador. Lo único fuera de alcance es sincronizar la <em>sesión</em> entre dos páginas abiertas en dos teléfonos distintos (eso sí requeriría un backend), por eso el log de "Registro en vivo" solo refleja lecturas hechas en este mismo dispositivo/pestaña.
   </div>
@@ -301,6 +325,7 @@ document.querySelectorAll('.tab').forEach(t=>{
     const v = t.dataset.view;
     document.getElementById('view-instructor').style.display = v==='instructor' ? '' : 'none';
     document.getElementById('view-aprendiz').style.display = v==='aprendiz' ? '' : 'none';
+    document.getElementById('view-enrolamiento').style.display = v==='enrolamiento' ? '' : 'none';
   });
 });
 
@@ -311,6 +336,7 @@ function fillSelect(sel, placeholder){
 }
 fillSelect(document.getElementById('manual-student'), 'Selecciona aprendiz…');
 fillSelect(document.getElementById('aprendiz-select'), 'Selecciona tu perfil…');
+fillSelect(document.getElementById('enroll-select'), 'Selecciona aprendiz a enrolar…');
 
 // ---------- Carnet preview ----------
 const aprendizSelect = document.getElementById('aprendiz-select');
@@ -479,6 +505,55 @@ btnActivarLector.addEventListener('click', async ()=>{
   }catch(err){
     debugLog(`scan() falló: ${err.name} — ${err.message}`, 'err');
     readerStatus.textContent = 'No se pudo activar el lector (permiso denegado o sin hardware NFC en este dispositivo).';
+  }
+});
+
+// ---------- Enrolamiento: escribir datos del estudiante en un tag NFC ----------
+const enrollBadge = document.getElementById('enroll-support-badge');
+const enrollDebug = document.getElementById('enroll-debug');
+const enrollConfirm = document.getElementById('enroll-confirm');
+const enrollSelect = document.getElementById('enroll-select');
+const btnWriteTag = document.getElementById('btn-write-tag');
+
+function enrollLog(msg, kind){
+  const time = fmtTime(new Date());
+  if(enrollDebug.querySelector('.log-empty')) enrollDebug.innerHTML = '';
+  const color = kind==='err' ? 'var(--red)' : kind==='ok' ? 'var(--teal)' : 'var(--muted)';
+  const line = document.createElement('div');
+  line.className = 'log-line';
+  line.innerHTML = `<span style="color:${color}">${msg}</span><span style="color:var(--muted)">${time}</span>`;
+  enrollDebug.prepend(line);
+}
+
+if('NDEFReader' in window){
+  enrollBadge.textContent = 'Web NFC disponible — puede escribir tags reales';
+} else {
+  enrollBadge.textContent = 'Web NFC no disponible aquí';
+  btnWriteTag.disabled = true;
+  enrollLog('NDEFReader no existe en este navegador: se necesita Chrome para Android sobre HTTPS.', 'err');
+}
+
+btnWriteTag.addEventListener('click', async ()=>{
+  const studentId = enrollSelect.value;
+  if(!studentId){
+    enrollConfirm.textContent = 'Selecciona primero a qué aprendiz corresponde el tag.';
+    enrollConfirm.className = 'confirm err';
+    return;
+  }
+  const s = students.find(x=>x.id===studentId);
+  enrollConfirm.textContent = 'Acerca el tag NFC al dispositivo para escribirlo…';
+  enrollConfirm.className = 'confirm warn';
+  enrollLog(`Solicitando escritura para ${s.name} (${studentId}|${s.doc})…`);
+  try{
+    const writer = new NDEFReader();
+    await writer.write({records:[{recordType:'text', data: `${studentId}|${s.doc}`}]});
+    enrollConfirm.textContent = `Tag escrito correctamente para ${s.name}. Ya puede usarse para registrar asistencia.`;
+    enrollConfirm.className = 'confirm ok';
+    enrollLog(`Escritura exitosa: ${s.name}.`, 'ok');
+  }catch(err){
+    enrollConfirm.textContent = 'No se pudo escribir el tag (permiso denegado, sin hardware NFC, o se agotó el tiempo de espera).';
+    enrollConfirm.className = 'confirm err';
+    enrollLog(`write() falló: ${err.name} — ${err.message}`, 'err');
   }
 });
 

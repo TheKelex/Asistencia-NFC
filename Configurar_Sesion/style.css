@@ -9,6 +9,15 @@ body {
 .menu-sticky {
 
     background-color: white;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+
+}
+
+.contenido {
+
+    background-color: #F4F3FF;
 
 }
 
@@ -18,9 +27,17 @@ body {
 
 }
 
-.contenido {
+.btn-accion {
 
-    background-color: #F4F3FF;
+    display: inline-block;
+
+}
+
+.btn-accion-activo {
+
+    display: inline-block;
+    background-color: #EFF2FD;
+    border-right: 3px solid #226D00;
 
 }
 
