@@ -15,6 +15,20 @@ body {
 
 }
 
+@media (max-width:991px){
+
+.menu-sticky{
+
+    position:relative;
+
+    width:100%;
+
+    height:auto;
+
+}
+
+}
+
 .contenido {
 
     background-color: #F4F3FF;
@@ -30,6 +44,13 @@ body {
 .btn-accion {
 
     display: inline-block;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.btn-accion:hover {
+
+    background-color: #EFF2FD;
 
 }
 
@@ -38,7 +59,23 @@ body {
     display: inline-block;
     background-color: #EFF2FD;
     border-right: 3px solid #226D00;
+    transition: all 0.3s ease-in-out;
 
 }
 
 /*================= Fin estilos para el menu sticky =================*/
+
+
+
+
+
+/*================= Inicio estilos para el contenido =================*/
+
+.caja {
+
+    background-color: white;
+    border: 1px solid #e6efe2;
+
+}
+
+/*================= Fin estilos para el contenido =================*/

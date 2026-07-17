@@ -1,24 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asistencia</title>
 
-    <link rel="stylesheet" href="./style.css"></link>
-    <link rel="stylesheet" href="../Aparte/bootstrap-5.3.8-dist/css/bootstrap.css"></link> <!--Bootstrap CSS-->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" /> <!--Google Icons--> 
+    <link rel="stylesheet" href="./style.css">
+    </link>
+    <link rel="stylesheet" href="../Aparte/bootstrap-5.3.8-dist/css/bootstrap.css">
+    </link> <!--Bootstrap CSS-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <!--Google Icons-->
 
 </head>
+
 <body>
-    
+
+
+
+    <!--================= Inicio menu offcanvas (es el mismo que el sticky pero para celulares) =================-->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="menuMovil">
+
+        <div class="offcanvas-header">
+
+            <div class="d-flex gap-2 align-items-center">
+
+                <span class="material-symbols-outlined logo-nfc p-2 text-white rounded-3">
+                    nfc
+                </span>
+
+                <div>
+                    <h5 class="m-0" style="color:#226D00;">
+                        Asistencia
+                    </h5>
+
+                    <small>Sistema NFC</small>
+
+                </div>
+
+            </div>
+
+            <button class="btn-close" data-bs-dismiss="offcanvas">
+            </button>
+
+        </div>
+
+        <div class="offcanvas-body d-flex flex-column gap-3">
+
+            <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
+                href="#">
+
+                <span class="material-symbols-outlined px-2">
+                    dashboard
+                </span>
+
+                Dashboard
+
+            </a>
+
+            <a class="d-flex gap-2 btn-accion-activo align-items-center py-3 rounded-3 text-decoration-none text-black"
+                href="#">
+
+                <span class="material-symbols-outlined px-2" style="color:#226D00;">
+                    event_seat
+                </span>
+
+                Sesión
+
+            </a>
+
+            <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
+                href="#">
+
+                <span class="material-symbols-outlined px-2">
+                    history
+                </span>
+
+                Historial
+
+            </a>
+
+            <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
+                href="#">
+
+                <span class="material-symbols-outlined px-2">
+                    analytics
+                </span>
+
+                Reportes
+
+            </a>
+
+            <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
+                href="#">
+
+                <span class="material-symbols-outlined px-2">
+                    group
+                </span>
+
+                Aprendices
+
+            </a>
+
+            <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black"
+                href="#">
+
+                <span class="material-symbols-outlined px-2">
+                    settings
+                </span>
+
+                Ajustes
+
+            </a>
+
+        </div>
+
+    </div>
+    <!--================= Fin menu offcanvas (es el mismo que el sticky pero para celulares) =================-->
+
+
+
     <!--Row padre para la division del menu sticky-->
     <div class="row w-100 g-0">
 
         <!--================= Inicio menu sticky =================-->
-        <div class="col-2 p-4 menu-sticky shadow d-flex flex-column">
+        <div class="col-lg-2 d-none d-lg-flex p-4 menu-sticky shadow flex-column">
 
-            <div class="d-flex gap-2 mb-5 align-items-center"> <!--Nombre sistema / logo-->
+            <!--Nombre sistema / logo-->
+            <div class="d-flex gap-2 mb-5 align-items-center">
 
                 <span class="material-symbols-outlined logo-nfc p-2 text-white rounded-3">
                     nfc
@@ -36,63 +146,69 @@
             <div class="d-flex flex-column flex-grow-1 gap-3">
 
                 <!--Bloque opcion (copy + paste)-->
-                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
+                    href="#">
 
                     <span class="material-symbols-outlined px-2">
                         dashboard
                     </span>
-                    
+
                     <p class="my-auto">Dashboard</p>
 
                 </a>
 
-                <a class="d-flex gap-2 btn-accion-activo align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <a class="d-flex gap-2 btn-accion-activo align-items-center py-3 rounded-3 text-decoration-none text-black"
+                    href="#">
 
                     <span class="material-symbols-outlined px-2" style="color: #226D00;">
                         event_seat
                     </span>
-                    
+
                     <p class="my-auto">Sesion</p>
 
                 </a>
 
-                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
+                    href="#">
 
                     <span class="material-symbols-outlined px-2">
                         history
                     </span>
-                    
+
                     <p class="my-auto">Historial</p>
 
                 </a>
 
-                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
+                    href="#">
 
                     <span class="material-symbols-outlined px-2">
                         analytics
                     </span>
-                    
+
                     <p class="my-auto">Reportes</p>
 
                 </a>
 
-                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
+                    href="#">
 
                     <span class="material-symbols-outlined px-2">
                         group
                     </span>
-                    
+
                     <p class="my-auto">Aprendices</p>
 
                 </a>
 
                 <!--Ajustes-->
-                <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black"
+                    href="#">
 
                     <span class="material-symbols-outlined px-2" style="color: gray;">
                         settings
                     </span>
-                    
+
                     <p class="my-auto" style="color: gray;">Ajustes</p>
 
                 </a>
@@ -102,13 +218,75 @@
         </div>
         <!--================= Fin menu sticky =================-->
 
-        <div class="col-10 p-4 contenido container-fluid"> <!--Contenido-->
 
-            <p>lorem100000</p>
+
+        <!--================= Inicio del contenido =================-->
+        <div class="col-12 col-lg-10 p-4 contenido container-fluid">
+
+            <!--Boton para abrir el menu offcanvas (solo se muestra en celulares)-->
+            <div class="d-lg-none mb-4">
+
+                <button class="btn btn-success d-flex align-items-center gap-2" data-bs-toggle="offcanvas"
+                    data-bs-target="#menuMovil">
+
+                    <span class="material-symbols-outlined">
+                        menu
+                    </span>
+
+                    Menú
+
+                </button>
+
+            </div>
+
+            <div class="d-flex gap-2 align-items-center"> <!--Nombre sistema / logo-->
+
+                <span class="material-symbols-outlined p-2 fs-2 rounded-3" style="color: #226D00;">
+                    tune
+                </span>
+
+                <!--Evita el espaciado entre los textos-->
+                <div class="p-0">
+                    <h3 class="p-0 m-0">Configurar la Sesion</h3>
+                </div>
+
+            </div>
+
+            <p class="d-flex px-2">Configure los parametros para iniciar la sesion de toma de asistencia.</p>
+
+            
+            <div class="row">
+
+                <div class="col-8 px-3">
+
+                    <div class="caja d-flex p-2 rounded-3">
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-4">
+
+
+
+                </div>
+
+            </div>
 
         </div>
+        <!--================= Fin del contenido =================-->
 
     </div>
 
+
+
+    <!--================= Inicio zona scirpts =================-->
+
+    <!--Scripts bootstrap-->
+    <script src="../Aparte/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+
 </body>
+
 </html>
