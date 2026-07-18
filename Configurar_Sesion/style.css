@@ -78,4 +78,42 @@ body {
 
 }
 
+.seleccion {
+
+    border: 1px solid #e6efe2;
+
+}
+
+.marcas{
+
+    display:flex;
+    justify-content:space-between;
+    margin-top:8px;
+    padding:0 8px;
+    color:#6c757d;
+    font-size:.9rem;
+    font-weight: bold;
+
+}
+
+.form-check-input:checked{
+
+    background-color: #226D00 !important;
+    border-color: #226D00 !important;
+
+}
+
+.form-check-input:focus{
+
+    border-color: #226D00 !important;
+    box-shadow: 0 0 0 .25rem rgba(34,109,0,.25) !important;
+
+}
+
+.form-range{
+
+    accent-color: #226D00;
+
+}
+
 /*================= Fin estilos para el contenido =================*/
