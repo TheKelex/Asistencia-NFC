@@ -1,6 +1,6 @@
 body {
 
-    background-color: #F4F3FF;
+    background-color: #F4F3FF !important;
 
 }
 
@@ -113,6 +113,33 @@ body {
 .form-range{
 
     accent-color: #226D00;
+
+}
+
+/*Estilos apartado resumen*/
+
+.icono-resumen{
+
+    background-color: #E7E7F2;
+    color: #535663;
+    font-size: 1rem;
+
+}
+
+.boton-submit {
+
+    background-color: #226D00;
+    color: white;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.boton-submit:hover {
+
+    background-color: #1B5A00;
+    transform: scale(1.02);
 
 }
 
