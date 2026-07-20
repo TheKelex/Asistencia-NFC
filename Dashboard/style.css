@@ -15,10 +15,26 @@ body {
 .sidebar {
   width: 260px;
   min-height: 100vh;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-right: 1px solid rgba(34, 109, 0, 0.08);
+  background-color: #ffffff;
+  border-right: 1px solid #e6efe2;
+}
+
+.menu-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.logo-nfc {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background-color: #226d00;
+  color: white;
+  font-size: 1.25rem;
 }
 
 .brand-badge {
@@ -28,7 +44,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  background: linear-gradient(135deg, #226d00, #39a900);
+  background-color: #226d00;
   color: white;
   font-size: 1.25rem;
 }
@@ -39,14 +55,30 @@ body {
   gap: 0.8rem;
   padding: 0.8rem 1rem;
   border-radius: 0.9rem;
-  color: #4b5563;
+  color: #111827;
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
+.btn-accion {
+  color: #111827;
+}
+
+.btn-accion:hover {
+  background-color: #eff2fd;
+  color: #226d00;
+}
+
+.btn-accion-activo {
+  background-color: #eff2fd;
+  border-right: 3px solid #226d00;
+  color: #226d00;
+  font-weight: 600;
+}
+
 .nav-link:hover,
 .nav-link.active {
-  background: rgba(34, 109, 0, 0.08);
+  background-color: #eff2fd;
   color: #226d00;
   font-weight: 600;
 }

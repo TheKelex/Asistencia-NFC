@@ -19,37 +19,37 @@
            Sidebar de navegación
            Permite acceder a las secciones principales del sistema.
       ========================== -->
-      <aside class="d-none d-lg-flex flex-column p-4 sidebar">
+      <aside class="d-none d-lg-flex flex-column p-4 sidebar menu-sticky">
         <div class="d-flex align-items-center gap-3 mb-5">
-          <span class="material-symbols-outlined brand-badge">nfc</span>
+          <span class="material-symbols-outlined logo-nfc p-2 text-white rounded-3  ">nfc</span>
           <div>
-            <h1 class="h5 mb-0 fw-bold text-primary">Asistencia</h1>
+            <h1 class="h5 mb-0 fw-bold" style="color:#226D00;">Asistencia</h1>
             <p class="small text-muted mb-0">Sistema NFC</p>
           </div>
         </div>
 
         <nav class="d-flex flex-column gap-2 flex-grow-1">
-          <a class="nav-link" href="../Dashboard/Dashboard.html">
+          <a class="nav-link btn-accion" href="../Dashboard/Dashboard.html">
             <span class="material-symbols-outlined">dashboard</span>
             <span>Dashboard</span>
           </a>
-          <a class="nav-link" href="#">
+          <a class="nav-link btn-accion" href="#">
             <span class="material-symbols-outlined">event_seat</span>
             <span>Sesiones</span>
           </a>
-          <a class="nav-link" href="#">
+          <a class="nav-link btn-accion" href="#">
             <span class="material-symbols-outlined">history</span>
             <span>Historial</span>
           </a>
-          <a class="nav-link" href="#">
+          <a class="nav-link btn-accion" href="#">
             <span class="material-symbols-outlined">analytics</span>
             <span>Reportes</span>
           </a>
-          <a class="nav-link" href="#">
+          <a class="nav-link btn-accion" href="#">
             <span class="material-symbols-outlined">group</span>
             <span>Aprendices</span>
           </a>
-          <a class="nav-link mt-auto active" href="#">
+          <a class="nav-link btn-accion-activo mt-auto active" href="#">
             <span class="material-symbols-outlined">settings</span>
             <span>Ajustes</span>
           </a>
@@ -68,15 +68,6 @@
               <p class="small text-muted mb-0">Administra tu perfil, preferencias y lector NFC</p>
             </div>
             <div class="d-flex align-items-center gap-2">
-              <div class="input-group search-pill d-none d-md-flex">
-                <span class="input-group-text bg-transparent border-0 text-muted">
-                  <span class="material-symbols-outlined">search</span>
-                </span>
-                <input type="text" class="form-control border-0 shadow-none" placeholder="Buscar" />
-              </div>
-              <button class="btn btn-light rounded-circle p-2" type="button">
-                <span class="material-symbols-outlined text-muted">notifications</span>
-              </button>
               <div class="avatar">DT</div>
             </div>
           </div>
@@ -92,7 +83,7 @@
             <div class="col-12 col-xl-8">
               <section class="glass-card p-4 rounded-4">
                 <div class="d-flex align-items-center gap-2 mb-3">
-                  <span class="material-symbols-outlined text-primary">person</span>
+                  <span class="material-symbols-outlined">person</span>
                   <h3 class="h5 fw-bold mb-0">Perfil del instructor</h3>
                 </div>
 
@@ -127,7 +118,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                  <button class="btn btn-primary rounded-pill px-4">Guardar cambios</button>
+                  <button class="btn btn-primary rounded-pill px-4" style="background-color: #226D00; border-color: #226D00;">Guardar cambios</button>
                 </div>
               </section>
 
@@ -137,7 +128,7 @@
               ========================== -->
               <section class="glass-card p-4 rounded-4 mt-4">
                 <div class="d-flex align-items-center gap-2 mb-3">
-                  <span class="material-symbols-outlined text-primary">tune</span>
+                  <span class="material-symbols-outlined">tune</span>
                   <h3 class="h5 fw-bold mb-0">Configuración del sistema</h3>
                 </div>
 
@@ -162,23 +153,13 @@
                     <option>JSON</option>
                   </select>
                 </div>
-
-                <div class="d-flex justify-content-between align-items-center py-3">
-                  <div>
-                    <h4 class="h6 mb-1">Notificaciones por correo</h4>
-                    <p class="small text-muted mb-0">Recibe alertas de tardanzas y sesiones.</p>
-                  </div>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" checked />
-                  </div>
-                </div>
               </section>
             </div>
 
             <div class="col-12 col-xl-4">
               <section class="glass-card p-4 rounded-4">
                 <div class="d-flex align-items-center gap-2 mb-3">
-                  <span class="material-symbols-outlined text-primary">nfc</span>
+                  <span class="material-symbols-outlined">nfc</span>
                   <h3 class="h5 fw-bold mb-0">Lector NFC</h3>
                 </div>
 
@@ -186,6 +167,7 @@
                   <div class="reader-ring mx-auto mb-3">
                     <span class="material-symbols-outlined">contactless</span>
                   </div>
+                  <br/>
                   <span class="badge rounded-pill bg-success-subtle text-success mb-3">Lectura activa</span>
                   <h4 class="h6 fw-bold">ACR122U NFC Reader</h4>
                   <p class="small text-muted mb-0">ID: 0x4F8A2B99</p>
