@@ -1,0 +1,151 @@
+/* =====================================
+   Estilos base de Ajustes
+   Definen la identidad visual y el fondo de la vista.
+===================================== */
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1f2937;
+  background: linear-gradient(135deg, #f7f8ff 0%, #f8fbff 50%, #f2f7ee 100%);
+}
+
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  min-height: 100vh;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-right: 1px solid rgba(34, 109, 0, 0.08);
+}
+
+.brand-badge {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #226d00, #39a900);
+  color: white;
+  font-size: 1.25rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.9rem;
+  color: #4b5563;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(34, 109, 0, 0.08);
+  color: #226d00;
+  font-weight: 600;
+}
+
+.topbar {
+  padding: 1.1rem 1.4rem;
+  margin: 1rem;
+  border-radius: 1.3rem;
+}
+
+/* =====================================
+   Tarjetas con efecto glass
+   Se reutilizan para los paneles de perfil, configuración y lector NFC.
+===================================== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+}
+
+.search-pill {
+  min-width: 220px;
+}
+
+.search-pill .form-control {
+  background: transparent;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #226d00, #7ecb5c);
+  color: white;
+  font-weight: 700;
+}
+
+.avatar-lg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(34, 109, 0, 0.12);
+}
+
+.avatar-lg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =====================================
+   Formularios y controles de entrada
+   Estiliza los campos utilizados en el perfil y la configuración.
+===================================== */
+.form-shell {
+  border-radius: 0.9rem;
+  border: 1px solid rgba(34, 109, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.form-check-input:checked {
+  background-color: #226d00;
+  border-color: #226d00;
+}
+
+.form-check-input:focus {
+  border-color: #226d00;
+  box-shadow: 0 0 0 0.25rem rgba(34, 109, 0, 0.2);
+}
+
+/* =====================================
+   Indicador del lector NFC
+   Representa el estado de conexión del hardware.
+===================================== */
+.reader-ring {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(34, 109, 0, 0.12), rgba(79, 124, 255, 0.15));
+  color: #226d00;
+  border: 1px solid rgba(34, 109, 0, 0.14);
+  font-size: 2.2rem;
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    display: none !important;
+  }
+
+  .topbar {
+    margin: 1rem 1rem 0;
+  }
+}

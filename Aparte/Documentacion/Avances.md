@@ -20,7 +20,7 @@ Los hallazgos hechos de este dia fueron:
 
 #### Lunes (13)
 
-Durante este dia no se llevo un desarrollo inmediato del proyecto debido a que no contamos con los sitckers NFC para verificar que el prototipo funciona para empezar a desarrollar el MVP, una vez tengamos estos se empezaran a realizar pruebas antes de iniciar el desarrollo para evitar problemas futuros.
+Durante este dia no se llevo un desarrollo inmediato del proyecto debido a que no contamos con los sitckers/tarjetas NFC para verificar que el prototipo funciona para empezar a desarrollar el MVP, una vez tengamos estos se empezaran a realizar pruebas antes de iniciar el desarrollo para evitar problemas futuros.
 
 #### Martes (14)
 
@@ -37,3 +37,7 @@ El dia miercoles se realizo la compra de las tarjetas NFC, este dia no se adelan
 #### Jueves (16)
 
 Este dia las tarjetas llegaron a Neiva y estan esperando para ser repartidas por el distribuidor local, a las 9.20 a.m. se llevo a cabo una reunion para repartir desarrollo FrontEnd en base al MockUp propuesto por la clase anterior, ademas de esto se creo el repositorio para llevar un control de versiones y para el trabajo colaborativo (se creo el archivo [Config.md](./Config.md) en el que estan los comandos para inizialisar el repositorio)
+
+#### domingo (20)
+
+se creo el front-end de ajustes y dashboard, quedan cosas por mejorar.

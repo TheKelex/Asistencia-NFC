@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajustes | Asistencia NFC</title>
+    <link rel="stylesheet" href="../Aparte/bootstrap-5.3.8-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;500;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- ==========================
+         Layout principal de Ajustes
+         Organiza el sidebar, el header y el contenido del formulario.
+    ========================== -->
+    <div class="d-flex min-vh-100">
+      <!-- ==========================
+           Sidebar de navegación
+           Permite acceder a las secciones principales del sistema.
+      ========================== -->
+      <aside class="d-none d-lg-flex flex-column p-4 sidebar">
+        <div class="d-flex align-items-center gap-3 mb-5">
+          <span class="material-symbols-outlined brand-badge">nfc</span>
+          <div>
+            <h1 class="h5 mb-0 fw-bold text-primary">Asistencia</h1>
+            <p class="small text-muted mb-0">Sistema NFC</p>
+          </div>
+        </div>
+
+        <nav class="d-flex flex-column gap-2 flex-grow-1">
+          <a class="nav-link" href="../Dashboard/Dashboard.html">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span>Dashboard</span>
+          </a>
+          <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">event_seat</span>
+            <span>Sesiones</span>
+          </a>
+          <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">history</span>
+            <span>Historial</span>
+          </a>
+          <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">analytics</span>
+            <span>Reportes</span>
+          </a>
+          <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">group</span>
+            <span>Aprendices</span>
+          </a>
+          <a class="nav-link mt-auto active" href="#">
+            <span class="material-symbols-outlined">settings</span>
+            <span>Ajustes</span>
+          </a>
+        </nav>
+      </aside>
+
+      <div class="flex-grow-1 d-flex flex-column">
+        <!-- ==========================
+             Header superior de Ajustes
+             Muestra la barra de búsqueda y acciones rápidas del usuario.
+        ========================== -->
+        <header class="topbar glass-card">
+          <div class="d-flex align-items-center justify-content-between gap-3">
+            <div>
+              <h2 class="h4 mb-0 fw-bold text-dark">Ajustes del sistema</h2>
+              <p class="small text-muted mb-0">Administra tu perfil, preferencias y lector NFC</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <div class="input-group search-pill d-none d-md-flex">
+                <span class="input-group-text bg-transparent border-0 text-muted">
+                  <span class="material-symbols-outlined">search</span>
+                </span>
+                <input type="text" class="form-control border-0 shadow-none" placeholder="Buscar" />
+              </div>
+              <button class="btn btn-light rounded-circle p-2" type="button">
+                <span class="material-symbols-outlined text-muted">notifications</span>
+              </button>
+              <div class="avatar">DT</div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ==========================
+             Contenido principal de Ajustes
+             Agrupa el perfil, la configuración del sistema y el lector NFC.
+        ========================== -->
+        <main class="flex-grow-1 p-3 p-lg-4">
+          <!-- Grid principal de Bootstrap: separa el contenido principal del panel lateral de estado. -->
+          <div class="row g-4">
+            <div class="col-12 col-xl-8">
+              <section class="glass-card p-4 rounded-4">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <span class="material-symbols-outlined text-primary">person</span>
+                  <h3 class="h5 fw-bold mb-0">Perfil del instructor</h3>
+                </div>
+
+                <!-- Grid interno de Bootstrap: organiza los campos del formulario en columnas responsivas. -->
+                <div class="row g-4 align-items-start">
+                  <div class="col-12 col-md-4 text-center">
+                    <div class="avatar-lg mx-auto mb-3">
+                      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=220&q=80" alt="Instructor" />
+                    </div>
+                    <button class="btn btn-outline-success rounded-pill btn-sm">Actualizar foto</button>
+                  </div>
+                  <div class="col-12 col-md-8">
+                    <div class="row g-3">
+                      <div class="col-12 col-md-6">
+                        <label class="form-label small fw-semibold text-muted">Nombre completo</label>
+                        <input class="form-control form-shell" type="text" value="Dr. Aris Thorne" />
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label class="form-label small fw-semibold text-muted">Correo</label>
+                        <input class="form-control form-shell" type="email" value="a.thorne@university.edu" disabled />
+                      </div>
+                      <div class="col-12">
+                        <label class="form-label small fw-semibold text-muted">Departamento</label>
+                        <select class="form-select form-shell">
+                          <option>Ingeniería de Sistemas</option>
+                          <option>Informática</option>
+                          <option>Matemáticas</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                  <button class="btn btn-primary rounded-pill px-4">Guardar cambios</button>
+                </div>
+              </section>
+
+              <!-- ==========================
+                   Configuración del sistema
+                   Controla preferencias generales y notificaciones.
+              ========================== -->
+              <section class="glass-card p-4 rounded-4 mt-4">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <span class="material-symbols-outlined text-primary">tune</span>
+                  <h3 class="h5 fw-bold mb-0">Configuración del sistema</h3>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
+                  <div>
+                    <h4 class="h6 mb-1">Sincronización automática</h4>
+                    <p class="small text-muted mb-0">Sube los registros cuando vuelva la conexión.</p>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" checked />
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
+                  <div>
+                    <h4 class="h6 mb-1">Formato de exportación</h4>
+                    <p class="small text-muted mb-0">Formato predeterminado para reportes.</p>
+                  </div>
+                  <select class="form-select form-shell w-auto">
+                    <option>CSV</option>
+                    <option>XLSX</option>
+                    <option>JSON</option>
+                  </select>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center py-3">
+                  <div>
+                    <h4 class="h6 mb-1">Notificaciones por correo</h4>
+                    <p class="small text-muted mb-0">Recibe alertas de tardanzas y sesiones.</p>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" checked />
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <section class="glass-card p-4 rounded-4">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <span class="material-symbols-outlined text-primary">nfc</span>
+                  <h3 class="h5 fw-bold mb-0">Lector NFC</h3>
+                </div>
+
+                <div class="text-center py-4">
+                  <div class="reader-ring mx-auto mb-3">
+                    <span class="material-symbols-outlined">contactless</span>
+                  </div>
+                  <span class="badge rounded-pill bg-success-subtle text-success mb-3">Lectura activa</span>
+                  <h4 class="h6 fw-bold">ACR122U NFC Reader</h4>
+                  <p class="small text-muted mb-0">ID: 0x4F8A2B99</p>
+                </div>
+
+                <div class="d-grid gap-2 mt-3">
+                  <button class="btn btn-outline-secondary rounded-pill">Probar conexión</button>
+                  <button class="btn btn-outline-success rounded-pill">Calibrar lector</button>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="../Aparte/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
