@@ -1,0 +1,85 @@
+body {
+
+    background-color: #F4F3FF !important;
+
+}
+
+/*================= Inicio estilos para el menu sticky =================*/
+
+.menu-sticky {
+
+    background-color: white;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+
+}
+
+@media (max-width:991px){
+
+.menu-sticky{
+
+    position:relative;
+
+    width:100%;
+
+    height:auto;
+
+}
+
+}
+
+.contenido {
+
+    background-color: #F4F3FF;
+
+}
+
+.logo-nfc {
+
+    background-color: #226D00;
+
+}
+
+.btn-accion {
+
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.btn-accion:hover {
+
+    background-color: #EFF2FD;
+
+}
+
+.btn-accion-activo {
+
+    display: inline-block;
+    background-color: #EFF2FD;
+    border-right: 3px solid #226D00;
+    transition: all 0.3s ease-in-out;
+
+}
+
+/*================= Fin estilos para el menu sticky =================*/
+
+
+
+
+
+/*================= Inicio estilos para el contenido =================*/
+
+.caja {
+
+    background-color: white;
+    border: 1px solid #e6efe2;
+
+}
+
+.seleccion {
+
+    border: 1px solid #e6efe2;
+
+}

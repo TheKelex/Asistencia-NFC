@@ -1,6 +1,6 @@
 body {
 
-    background-color: #F4F3FF;
+    background-color: #F4F3FF !important;
 
 }
 
@@ -9,12 +9,23 @@ body {
 .menu-sticky {
 
     background-color: white;
+    position: sticky;
+    top: 0;
+    height: 100vh;
 
 }
 
-.logo-nfc {
+@media (max-width:991px){
 
-    background-color: #226D00;
+.menu-sticky{
+
+    position:relative;
+
+    width:100%;
+
+    height:auto;
+
+}
 
 }
 
@@ -24,4 +35,112 @@ body {
 
 }
 
+.logo-nfc {
+
+    background-color: #226D00;
+
+}
+
+.btn-accion {
+
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.btn-accion:hover {
+
+    background-color: #EFF2FD;
+
+}
+
+.btn-accion-activo {
+
+    display: inline-block;
+    background-color: #EFF2FD;
+    border-right: 3px solid #226D00;
+    transition: all 0.3s ease-in-out;
+
+}
+
 /*================= Fin estilos para el menu sticky =================*/
+
+
+
+
+
+/*================= Inicio estilos para el contenido =================*/
+
+.caja {
+
+    background-color: white;
+    border: 1px solid #e6efe2;
+
+}
+
+.seleccion {
+
+    border: 1px solid #e6efe2;
+
+}
+
+.marcas{
+
+    display:flex;
+    justify-content:space-between;
+    margin-top:8px;
+    padding:0 8px;
+    color:#6c757d;
+    font-size:.9rem;
+    font-weight: bold;
+
+}
+
+.form-check-input:checked{
+
+    background-color: #226D00 !important;
+    border-color: #226D00 !important;
+
+}
+
+.form-check-input:focus{
+
+    border-color: #226D00 !important;
+    box-shadow: 0 0 0 .25rem rgba(34,109,0,.25) !important;
+
+}
+
+.form-range{
+
+    accent-color: #226D00;
+
+}
+
+/*Estilos apartado resumen*/
+
+.icono-resumen{
+
+    background-color: #E7E7F2;
+    color: #535663;
+    font-size: 1rem;
+
+}
+
+.boton-submit {
+
+    background-color: #226D00;
+    color: white;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.boton-submit:hover {
+
+    background-color: #1B5A00;
+    transform: scale(1.02);
+
+}
+
+/*================= Fin estilos para el contenido =================*/
