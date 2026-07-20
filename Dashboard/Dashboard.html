@@ -19,41 +19,41 @@
            Sidebar de navegación
            Mantiene las opciones principales del sistema.
       ========================== -->
-      <aside class="d-none d-lg-flex flex-column p-4 sidebar menu-sticky">
-        <div class="d-flex align-items-center gap-3 mb-5">
+      <aside class="d-none d-lg-flex flex-column p-4 sidebar menu-sticky shadow">
+        <div class="d-flex gap-2 mb-5 align-items-center">
           <span class="material-symbols-outlined logo-nfc p-2 text-white rounded-3">nfc</span>
           <div>
-            <h1 class="h5 mb-0 fw-bold" style="color:#226D00;">Asistencia</h1>
-            <p class="small text-muted mb-0">Sistema NFC</p>
+            <h4 class="p-0 m-0" style="color:#226D00;">Asistencia</h4>
+            <p class="p-0 m-0" style="font-size:0.8rem;">Sistema NFC</p>
           </div>
         </div>
 
-        <nav class="d-flex flex-column gap-2 flex-grow-1">
-          <a class="nav-link btn-accion-activo active" href="#">
-            <span class="material-symbols-outlined">dashboard</span>
-            <span>Dashboard</span>
+        <div class="d-flex flex-column flex-grow-1 gap-3">
+          <a class="d-flex gap-2 btn-accion-activo align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+            <span class="material-symbols-outlined px-2">dashboard</span>
+            <p class="my-auto mb-0">Dashboard</p>
           </a>
-          <a class="nav-link btn-accion" href="#">
-            <span class="material-symbols-outlined">event_seat</span>
-            <span>Sesiones</span>
+          <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="../Configurar_Sesion/Configurar.html">
+            <span class="material-symbols-outlined px-2">event_seat</span>
+            <p class="my-auto mb-0">Sesión</p>
           </a>
-          <a class="nav-link btn-accion" href="#">
-            <span class="material-symbols-outlined">history</span>
-            <span>Historial</span>
+          <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+            <span class="material-symbols-outlined px-2">history</span>
+            <p class="my-auto mb-0">Historial</p>
           </a>
-          <a class="nav-link btn-accion" href="#">
-            <span class="material-symbols-outlined">analytics</span>
-            <span>Reportes</span>
+          <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+            <span class="material-symbols-outlined px-2">analytics</span>
+            <p class="my-auto mb-0">Reportes</p>
           </a>
-          <a class="nav-link btn-accion" href="#">
-            <span class="material-symbols-outlined">group</span>
-            <span>Aprendices</span>
+          <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+            <span class="material-symbols-outlined px-2">group</span>
+            <p class="my-auto mb-0">Aprendices</p>
           </a>
-          <a class="nav-link btn-accion mt-auto" href="../Ajustes/Ajustes.html">
-            <span class="material-symbols-outlined">settings</span>
-            <span>Ajustes</span>
+          <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black" href="../Ajustes/Ajustes.html">
+            <span class="material-symbols-outlined px-2">settings</span>
+            <p class="my-auto mb-0">Ajustes</p>
           </a>
-        </nav>
+        </div>
       </aside>
 
       <div class="flex-grow-1 d-flex flex-column">
@@ -100,7 +100,7 @@
                     <h3 class="h2 fw-bold text-dark mb-2">CS101: Introducción a la informática</h3>
                     <p class="text-muted mb-0">Salón 304 • Finaliza en 45 minutos</p>
                   </div>
-                  <a class="btn btn-primary btn-lg rounded-pill px-4" href="#">
+                  <a class="btn btn-primary btn-lg rounded-pill px-4" href="#" style="background-color: #226D00; border-color: #226D00;">
                     <span class="material-symbols-outlined me-2">nfc</span>
                     Ver escáner
                   </a>
@@ -245,21 +245,38 @@
          Menú móvil tipo offcanvas
          Se muestra únicamente en pantallas pequeñas.
     ========================== -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
-      <div class="offcanvas-body p-4">
-        <div class="d-flex align-items-center gap-3 mb-4">
-          <span class="material-symbols-outlined brand-badge">nfc</span>
+    <div class="offcanvas offcanvas-start w-50" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <div class="d-flex gap-2 align-items-center">
+          <span class="material-symbols-outlined logo-nfc p-2 text-white rounded-3">nfc</span>
           <div>
-            <h5 class="mb-0 fw-bold">Asistencia</h5>
-            <p class="small text-muted mb-0">Sistema NFC</p>
+            <h5 class="m-0" style="color:#226D00;">Asistencia</h5>
+            <small>Sistema NFC</small>
           </div>
         </div>
-        <nav class="d-flex flex-column gap-2">
-          <a class="nav-link active" href="#"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
-          <a class="nav-link" href="#"><span class="material-symbols-outlined">event_seat</span><span>Sesiones</span></a>
-          <a class="nav-link" href="#"><span class="material-symbols-outlined">history</span><span>Historial</span></a>
-          <a class="nav-link" href="#"><span class="material-symbols-outlined">settings</span><span>Ajustes</span></a>
-        </nav>
+        <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-3">
+        <a class="d-flex gap-2 btn-accion-activo align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+          <span class="material-symbols-outlined px-2">dashboard</span>
+          Dashboard
+        </a>
+        <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="../Configurar_Sesion/Configurar.html">
+          <span class="material-symbols-outlined px-2">event_seat</span>
+          Sesión
+        </a>
+        <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+          <span class="material-symbols-outlined px-2">history</span>
+          Historial
+        </a>
+        <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+          <span class="material-symbols-outlined px-2">analytics</span>
+          Reportes
+        </a>
+        <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="../Ajustes/Ajustes.html">
+          <span class="material-symbols-outlined px-2">settings</span>
+          Ajustes
+        </a>
       </div>
     </div>
 
