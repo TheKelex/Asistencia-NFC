@@ -32,6 +32,7 @@ body {
 .contenido {
 
     background-color: #F4F3FF;
+    min-height: 100vh;
 
 }
 
@@ -83,3 +84,149 @@ body {
     border: 1px solid #e6efe2;
 
 }
+
+.icono-resumen{
+
+    background-color: #E7E7F2;
+    font-size: 1rem;
+
+}
+
+.nfc-scan {
+
+    font-size: 3rem !important;
+    padding: 1rem;
+    color: white;
+    border-radius: 100%;
+    background-color: #226D00;
+
+}
+
+.icono-aprendiz {
+
+    background-color: #F2F2FA;
+    color: #7E808A;
+    padding: 10px;
+    border-radius: 100%;
+
+}
+
+.btn-outline-custom {
+
+    color: #226D00 !important;
+    border: 2px solid #226D00 !important;
+    transition: all .3s ease;
+
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom:focus,
+.btn-outline-custom:active {
+
+    background-color: #226D00 !important;
+    color: #fff !important;
+    border-color: #226D00 !important;
+
+}
+
+.btn-outline-custom .material-symbols-outlined {
+
+    color: inherit;
+
+}
+
+/*Estilo responsive para que las cajas ocupen todo el contentido en pantallas lg*/
+@media (min-width: 992px) {
+
+    .contenido{
+
+        min-height: 100vh;
+
+    }
+
+}
+
+.btn-custom {
+
+    background-color: #226D00 !important;
+    color: white !important;
+    border: 2px solid #226D00 !important;
+    transition: all .3s ease;
+
+}
+
+.btn-custom:hover {
+
+    background-color: #298300 !important;
+
+}
+
+
+
+
+
+
+
+
+
+/*========== Inicio Estilos Resumen ==========*/
+
+.logo-central {
+
+    font-size: 4rem !important;
+    padding: 1.5rem;
+    background-color: #E7F7EF;
+    border: 1px solid #C7EED7;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.logo-central:hover {
+
+    transform: scale(1.03);
+
+}
+
+.caja-conteo {
+
+    background-color: white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.caja-conteo:hover {
+
+    transform: scale(1.03);
+
+}
+
+.logo-conteo {
+
+    background-color: #E5F6EF;
+    border-radius: 100%;
+    padding: 0.7rem;
+    width: fit-content;
+
+}
+
+.boton-regresar {
+
+    background-color: #226D00;
+    padding: 1rem 1rem;
+    font-weight: bold;
+    color: white;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.boton-regresar:hover {
+
+    background-color: #298300;
+    transform: scale(1.03);
+
+}
+
+/*========== Fin Estilos Resumen ==========*/

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia</title>
+
+    <link rel="stylesheet" href="./style.css">
+    </link>
+    <link rel="stylesheet" href="../../Aparte/bootstrap-5.3.8-dist/css/bootstrap.css">
+    </link> <!--Bootstrap CSS-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <!--Google Icons-->
+
+</head>
+
+<!--Clase para evitar que se salga el contenido-->
+<body class="overflow-hidden" style="background-color: #FAF8FF;">
+
+    <!--Row para poder usar el sistema row-->
+    <div class="row p-3">
+        <div class="col-lg-6 col-12 d-flex p-3 vh-100 mx-auto flex-column align-items-center justify-content-center">
+
+            <span class="material-symbols-outlined logo-central mb-5 shadow rounded-circle" style="color: #22C55E;">
+                check_circle
+            </span>
+
+            <h1 class="fw-bold">Sesion Completada</h1>
+            <p class="text-secondary mb-4">La asistencia par Técnicas de Elicitación de Requisitos se ha registrado
+                correctamente.</p>
+
+            <div class="d-flex gap-3 w-100">
+
+                <div class="caja-conteo rounded-3 shadow w-100">
+
+                    <span class="material-symbols-outlined logo-conteo mb-2" style="color: #22C55E;">
+                        check
+                    </span>
+
+                    <small class="text-secondary d-block">Presentes</small>
+                    <span class="fw-bold"></span><span class="fw-semibold fs-3">24</span>
+
+                </div>
+
+                <div class="caja-conteo rounded-3 shadow w-100">
+
+                    <span class="material-symbols-outlined logo-conteo mb-2 text-danger">
+                        close
+                    </span>
+
+                    <small class="text-secondary d-block">Ausentes</small>
+                    <span class="fw-bold"></span><span class="fw-semibold fs-3">3</span>
+
+                </div>
+
+            </div>
+            
+            <a class="boton-regresar d-flex gap-2 align-items-center rounded-pill justify-content-center text-decoration-none mt-4" href="../../Dashboard/Dashboard.html">
+
+                Regresar al Dashboard
+
+                <span class="material-symbols-outlined">
+                    arrow_forward
+                </span>
+
+            </a>
+
+        </div>
+    </div>
+
+
+
+    <!--================= Inicio zona scirpts =================-->
+
+    <!--Scripts bootstrap-->
+    <script src="../../Aparte/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+
+</body>
+
+</html>

@@ -224,7 +224,7 @@
 
         <!--================= Inicio del contenido =================-->
 
-        <div class="col-12 col-lg-10 p-4 contenido container-fluid">
+        <div class="col-12 col-lg-10 p-4 d-flex flex-column contenido container-fluid">
 
             <!--Boton para abrir el menu offcanvas (solo se muestra en celulares)-->
             <div class="d-lg-none mb-4">
@@ -239,6 +239,241 @@
                     Menú
 
                 </button>
+
+            </div>
+
+            <!--Row para las cards informativa-->
+            <div class="row d-flex gap-3">
+
+                <!--Card (copy + paste)-->
+                <div class="d-flex mx-auto align-items-center pb-3 gap-3 mb-3 col-auto">
+
+                    <span class="material-symbols-outlined p-2 rounded-3 icono-resumen" style="color: green;">
+                        person_check
+                    </span>
+
+                    <div>
+                        <small class="text-secondary d-block">Presentes</small>
+                        <span class="fw-semibold"></span><span class="fw-semibold">24</span>
+                    </div>
+
+                </div>
+
+                <div class="d-flex mx-auto align-items-center pb-3 gap-3 mb-3 col-auto">
+
+                    <span class="material-symbols-outlined p-2 rounded-3 icono-resumen" style="color: red;">
+                        person_off
+                    </span>
+
+                    <div>
+                        <small class="text-secondary d-block">Ausentes</small>
+                        <span class="fw-semibold"></span><span class="fw-semibold">5</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--Row para la division de 3 (info central)-->
+            <div class="row flex-grow-1 overflow-hidden">
+
+                <!--Div para los detalles de la sesion-->
+                <div class="col-lg-4 col-12 p-2">
+                    <div class="d-flex flex-column gap-3 h-100 bg-white rounded-3 p-3 text-center text-lg-start">
+
+                        <!--Div nombre del apartado-->
+                        <div class="d-flex align-items-center gap-3 justify-content-center justify-content-lg-start">
+
+                            <span class="material-symbols-outlined" style="color: #226D00;">
+                                info
+                            </span>
+
+                            <h5 class="fw-bold mb-0">Detalles</h5>
+
+                        </div>
+
+                        <div>
+                            <small class="text-secondary d-block">Ficha Seleccionada</small>
+                            <span class="fw-semibold">3413974</span>
+                        </div>
+
+                        <div>
+                            <small class="text-secondary d-block">Competencia</small>
+                            <span class="fw-semibold">Técnicas de Elicitación de Requisitos</span>
+                        </div>
+
+                        <div>
+                            <small class="text-secondary d-block">Instructor</small>
+                            <span class="fw-semibold">Jesus Ariel</span>
+                        </div>
+
+                        <div class="mt-auto">
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+
+                                        <form action="">
+                                            <!--Encabezado del modal-->
+                                            <div class="modal-header">
+                                                <!--Titulo del modal-->
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Manual</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+
+
+                                            <!--Inicio contenido del modal-->
+                                            <div class="modal-body d-flex flex-column">
+
+                                                <div class="d-flex align-items-center gap-1 mb-1">
+
+                                                    <span class="material-symbols-outlined text-secondary">
+                                                        person_search
+                                                    </span>
+                                                    <label class="text-secondary">Buscar Aprendiz</label>
+
+                                                </div>
+
+                                                <input type="number" class="rounded-3 p-2 border" required placeholder="Ingrese el ID del aprendiz...">
+
+                                            </div>
+                                            <!--Fin contenido del modal-->
+
+
+                                            <!--Footer del modal (botones)-->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-custom"
+                                                    data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit"
+                                                    class="btn d-flex align-items-center gap-2 btn-custom">
+
+                                                    <span class="material-symbols-outlined">
+                                                        save
+                                                    </span>
+
+                                                    Guardar Asistencia
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column gap-3">
+
+                                <!-- Button trigger modal -->
+                                <button type="button"
+                                    class="btn mt-3 fw-bold d-flex mt-auto gap-2 align-items-center justify-content-center btn-outline-custom w-100"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                                    <span class="material-symbols-outlined">
+                                        keyboard
+                                    </span>
+
+                                    Registro Manual
+                                </button>
+
+                                <button
+                                    class="btn fw-bold d-flex gap-2 align-items-center justify-content-center btn-danger w-100"
+                                    type="submit">
+
+                                    <span class="material-symbols-outlined">
+                                        stop_circle
+                                    </span>
+
+                                    Terminar Sesion
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Div decorativo NFC-->
+                <div class="col-lg-4 col-12 p-2">
+                    <div class="bg-white rounded-3 p-3 d-flex flex-column h-100 align-items-center justify-content-center">
+
+                        <center>
+                            <span class="material-symbols-outlined nfc-scan mb-3">
+                                contactless
+                            </span>
+
+                            <h4 class="fw-bold">Acercar la Tarjeta del Aprendiz</h4>
+
+                            <p class="text-secondary">Lector NFC Funcionando</p>
+                        </center>
+
+                    </div>
+                </div>
+
+                <!--Div que muestra los registros de las personas-->
+                <div class="col-lg-4 col-12 p-2">
+                    <div class="bg-white rounded-3 p-3 d-flex flex-column h-100 text-center text-lg-start">
+
+                        <!--Div nombre del apartado-->
+                        <div
+                            class="d-flex align-items-center justify-content-center justify-content-lg-start gap-2 mb-3">
+
+                            <span class="material-symbols-outlined" style="color: #226D00;">
+                                history_toggle_off
+                            </span>
+
+                            <h5 class="fw-bold mb-0">Registros</h5>
+
+                        </div>
+
+                        <div class="overflow-auto flex-grow-1 d-flex flex-column gap-2" style="max-height: calc(100vh - 200px);">
+
+                            <!--Card info del aprendiz (copy + paste)-->
+                            <div class="d-flex gap-3 align-items-center">
+
+                                <span class="material-symbols-outlined icono-aprendiz">
+                                    person
+                                </span>
+
+                                <div>
+                                    <span class="fw-semibold">Juan David Gomez Martinez</span>
+                                    <small class="text-secondary d-block">ID: 1027348644</small>
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex gap-3 align-items-center">
+
+                                <span class="material-symbols-outlined icono-aprendiz">
+                                    person
+                                </span>
+
+                                <div>
+                                    <span class="fw-semibold">Martin Julian Torres Fierro</span>
+                                    <small class="text-secondary d-block">ID: 1034766543</small>
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex gap-3 align-items-center">
+
+                                <span class="material-symbols-outlined icono-aprendiz">
+                                    person
+                                </span>
+
+                                <div>
+                                    <span class="fw-semibold">Juan Mathias Palacios</span>
+                                    <small class="text-secondary d-block">ID: 1086734145</small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
 
