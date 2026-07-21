@@ -1,3 +1,67 @@
+<?php
+session_start();
+require_once '../../conexion.php';
+
+$sesionStmt = $conexion->prepare(
+    'SELECT id_sesion, id_ficha, id_competencia, fecha_inicio, tolerancia_minutos, estado FROM sesion_asistencia WHERE estado = ? ORDER BY id_sesion DESC LIMIT 1'
+);
+$estadoActivo = 'ACTIVA';
+$sesionStmt->bind_param('s', $estadoActivo);
+$sesionStmt->execute();
+$sesionResult = $sesionStmt->get_result();
+$sesion = $sesionResult->fetch_assoc();
+$sesionStmt->close();
+
+if (!$sesion) {
+    header('Location: ../../Dashboard/Dashboard.html');
+    exit;
+}
+
+$fichaStmt = $conexion->prepare('SELECT id_ficha, nombre_programa, jornada FROM ficha WHERE id_ficha = ? LIMIT 1');
+$fichaStmt->bind_param('i', $sesion['id_ficha']);
+$fichaStmt->execute();
+$fichaResult = $fichaStmt->get_result();
+$ficha = $fichaResult->fetch_assoc();
+$fichaStmt->close();
+
+$competenciaStmt = $conexion->prepare('SELECT id_competencia, nombre FROM competencia WHERE id_competencia = ? LIMIT 1');
+$competenciaStmt->bind_param('i', $sesion['id_competencia']);
+$competenciaStmt->execute();
+$competenciaResult = $competenciaStmt->get_result();
+$competencia = $competenciaResult->fetch_assoc();
+$competenciaStmt->close();
+
+$aprendicesStmt = $conexion->prepare(
+    'SELECT id_aprendiz, nombre, numero_identidad, serial_nfc FROM aprendiz WHERE id_ficha = ? ORDER BY nombre ASC'
+);
+$aprendicesStmt->bind_param('i', $sesion['id_ficha']);
+$aprendicesStmt->execute();
+$aprendicesResult = $aprendicesStmt->get_result();
+
+$aprendices = [];
+while ($aprendiz = $aprendicesResult->fetch_assoc()) {
+    $aprendices[] = [
+        'id_aprendiz' => (int) $aprendiz['id_aprendiz'],
+        'nombre' => $aprendiz['nombre'],
+        'numero_identidad' => $aprendiz['numero_identidad'],
+        'serial_nfc' => $aprendiz['serial_nfc']
+    ];
+}
+$aprendicesStmt->close();
+
+$registradosStmt = $conexion->prepare('SELECT id_aprendiz FROM asistencia WHERE id_sesion = ?');
+$registradosStmt->bind_param('i', $sesion['id_sesion']);
+$registradosStmt->execute();
+$registradosResult = $registradosStmt->get_result();
+
+$registrados = [];
+while ($registro = $registradosResult->fetch_assoc()) {
+    $registrados[] = (int) $registro['id_aprendiz'];
+}
+$registradosStmt->close();
+
+$conexion->close();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -293,17 +357,17 @@
 
                         <div>
                             <small class="text-secondary d-block">Ficha Seleccionada</small>
-                            <span class="fw-semibold">3413974</span>
+                            <span class="fw-semibold"><?php echo htmlspecialchars($ficha['id_ficha'], ENT_QUOTES, 'UTF-8'); ?></span>
                         </div>
 
                         <div>
                             <small class="text-secondary d-block">Competencia</small>
-                            <span class="fw-semibold">Técnicas de Elicitación de Requisitos</span>
+                            <span class="fw-semibold"><?php echo htmlspecialchars($competencia['nombre'], ENT_QUOTES, 'UTF-8'); ?></span>
                         </div>
 
                         <div>
                             <small class="text-secondary d-block">Instructor</small>
-                            <span class="fw-semibold">Jesus Ariel</span>
+                            <span class="fw-semibold"><?php echo htmlspecialchars($_SESSION['usuario'] ?? 'Instructor', ENT_QUOTES, 'UTF-8'); ?></span>
                         </div>
 
                         <div class="mt-auto">
@@ -376,9 +440,9 @@
                                     Registro Manual
                                 </button>
 
-                                <button
+                                <button id="btnTerminarSesion"
                                     class="btn fw-bold d-flex gap-2 align-items-center justify-content-center btn-danger w-100"
-                                    type="submit">
+                                    type="button">
 
                                     <span class="material-symbols-outlined">
                                         stop_circle
@@ -427,47 +491,7 @@
 
                         </div>
 
-                        <div class="overflow-auto flex-grow-1 d-flex flex-column gap-2" style="max-height: calc(100vh - 200px);">
-
-                            <!--Card info del aprendiz (copy + paste)-->
-                            <div class="d-flex gap-3 align-items-center">
-
-                                <span class="material-symbols-outlined icono-aprendiz">
-                                    person
-                                </span>
-
-                                <div>
-                                    <span class="fw-semibold">Juan David Gomez Martinez</span>
-                                    <small class="text-secondary d-block">ID: 1027348644</small>
-                                </div>
-
-                            </div>
-
-                            <div class="d-flex gap-3 align-items-center">
-
-                                <span class="material-symbols-outlined icono-aprendiz">
-                                    person
-                                </span>
-
-                                <div>
-                                    <span class="fw-semibold">Martin Julian Torres Fierro</span>
-                                    <small class="text-secondary d-block">ID: 1034766543</small>
-                                </div>
-
-                            </div>
-
-                            <div class="d-flex gap-3 align-items-center">
-
-                                <span class="material-symbols-outlined icono-aprendiz">
-                                    person
-                                </span>
-
-                                <div>
-                                    <span class="fw-semibold">Juan Mathias Palacios</span>
-                                    <small class="text-secondary d-block">ID: 1086734145</small>
-                                </div>
-
-                            </div>
+                        <div id="listaRegistros" class="overflow-auto flex-grow-1 d-flex flex-column gap-2" style="max-height: calc(100vh - 200px);">
 
                         </div>
 
@@ -489,145 +513,199 @@
     <!--Scripts bootstrap-->
     <script src="../../Aparte/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
 
-    <!--Script que ejecuta estilos para los estados del boton-->
     <script>
-
-        // Obtiene los elementos mediante el id
         const btnNFC = document.getElementById("btnNFC");
+        const btnTerminarSesion = document.getElementById("btnTerminarSesion");
         const icono = document.getElementById("iconoNFC");
         const titulo = document.getElementById("tituloNFC");
         const estado = document.getElementById("estadoNFC");
+        const listaRegistros = document.getElementById("listaRegistros");
 
-        // Lo predefine como desactivado
+        const aprendices = <?php echo json_encode($aprendices, JSON_UNESCAPED_UNICODE); ?>;
+        const registrados = <?php echo json_encode($registrados, JSON_UNESCAPED_UNICODE); ?>;
+        const sesionId = <?php echo (int) $sesion['id_sesion']; ?>;
+        const sessionData = <?php echo json_encode($sesion, JSON_UNESCAPED_UNICODE); ?>;
+
         let activo = false;
+        let ndef = null;
+        let lectorActivo = false;
+        let registros = [];
 
-        // Ejecuta la accion cuando se clickea el boton
-        btnNFC.addEventListener("click", ()=>{
+        function actualizarContadores() {
+            const presentes = registros.length;
+            const ausentes = Math.max(0, aprendices.length - presentes);
+            document.querySelectorAll('.fw-semibold')[0].textContent = presentes;
+            document.querySelectorAll('.fw-semibold')[1].textContent = ausentes;
+        }
 
-            // Lo cambia de estado
-            // True pasa a ser False
-            // False pasa a ser True
+        function renderRegistros() {
+            if (registros.length === 0) {
+                listaRegistros.innerHTML = '<div class="text-secondary">Aún no hay registros.</div>';
+                return;
+            }
+
+            listaRegistros.innerHTML = registros.map((registro) => `
+                <div class="d-flex gap-3 align-items-center">
+                    <span class="material-symbols-outlined icono-aprendiz">person</span>
+                    <div>
+                        <span class="fw-semibold">${registro.nombre}</span>
+                        <small class="text-secondary d-block">ID: ${registro.numero_identidad}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function mostrarMensaje(texto) {
+            estado.textContent = texto;
+        }
+
+        function normalizarSerial(valor) {
+            if (!valor) {
+                return '';
+            }
+
+            const texto = String(valor).trim();
+
+            if (!texto) {
+                return '';
+            }
+
+            const sinSeparadores = texto
+                .toLowerCase()
+                .replace(/[^a-f0-9]/g, '');
+
+            if (sinSeparadores) {
+                return sinSeparadores;
+            }
+
+            return texto.toLowerCase();
+        }
+
+        btnNFC.addEventListener("click", () => {
             activo = !activo;
 
-            if(activo){
-
-                // Cambia el contenido del span que tiene el logo
+            if (activo) {
                 icono.textContent = "contactless";
-                // Quita la clase
                 icono.classList.remove("nfc-scan-off");
-                // Añade la clase
                 icono.classList.add("nfc-scan");
-
-                // Cambia los textos
                 titulo.textContent = "Acercar la Tarjeta del Aprendiz";
                 estado.textContent = "Lector NFC Funcionando";
-
-                // Se llama la funcion
-                // Se nombran los valores
-                let ndef = null;
-                let lectorActivo = false;
                 activarLector();
-
-            }else{
-
-                // Cambia el contenido del span que tiene el logo
+            } else {
                 icono.textContent = "contactless_off";
-                // Quita la clase
                 icono.classList.remove("nfc-scan");
-                // Añade la clase
                 icono.classList.add("nfc-scan-off");
-
-                // Quita la clase
                 titulo.textContent = "Activar lector NFC";
                 estado.textContent = "Lector NFC desactivado";
-
-                // Se llama la funcion
                 desactivarLector();
-
             }
-
         });
 
-    </script>
-
-    <!--Script que ejecuta el lector NFC-->
-    <script>
-
         async function activarLector() {
-
-        if (!("NDEFReader" in window)) {
-
-            estado.textContent = "Este dispositivo no soporta NFC.";
-            return;
-
-        }
-
-        try {
-
-            ndef = new NDEFReader();
-
-            await ndef.scan();
-
-            lectorActivo = true;
-
-            console.log("Lector NFC activado");
-
-            ndef.onreading = (event) => {
-
-                if (!lectorActivo) return;
-
-                const uid = event.serialNumber;
-
-                console.log("UID:", uid);
-
-                estado.textContent = "Tarjeta detectada";
-
-                registrar(uid); // Tu función para enviar el UID al PHP
-
-            };
-
-            ndef.onreadingerror = () => {
-
-                if (!lectorActivo) return;
-
-                estado.textContent = "No fue posible leer la tarjeta.";
-
-            };
-
-            } catch (error) {
-
-                console.error(error);
-
-                estado.textContent = "Error al activar el lector.";
-
+            if (!("NDEFReader" in window)) {
+                estado.textContent = "Este dispositivo no soporta NFC.";
+                return;
             }
 
-        }        
-
-    </script>
-
-    <!--Script para desactivar las lecturas-->
-    <script>
+            try {
+                ndef = new NDEFReader();
+                await ndef.scan();
+                lectorActivo = true;
+                ndef.onreading = (event) => {
+                    if (!lectorActivo) return;
+                    const uid = event.serialNumber;
+                    mostrarMensaje('Tarjeta detectada');
+                    registrar(uid);
+                };
+                ndef.onreadingerror = () => {
+                    if (!lectorActivo) return;
+                    mostrarMensaje('No fue posible leer la tarjeta.');
+                };
+            } catch (error) {
+                console.error(error);
+                estado.textContent = 'Error al activar el lector.';
+            }
+        }
 
         function desactivarLector() {
-
             lectorActivo = false;
-
-            console.log("Lector NFC desactivado");
-
         }
 
-    </script>
+        function registrar(uid) {
+            const serialBuscado = normalizarSerial(uid);
+            const aprendiz = aprendices.find((item) => normalizarSerial(item.serial_nfc) === serialBuscado);
 
-    <!--Registrar el UID-->
-    <script>
+            if (!aprendiz) {
+                mostrarMensaje('Tarjeta no registrada');
+                return;
+            }
 
-        function registrar(uid){
+            if (registrados.includes(aprendiz.id_aprendiz)) {
+                mostrarMensaje('El estudiante ya registró asistencia.');
+                return;
+            }
 
-            console.log(uid);
-
+            fetch('../../registrar_asistencia.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_sesion: sesionId, id_aprendiz: aprendiz.id_aprendiz })
+            })
+            .then((respuesta) => respuesta.json())
+            .then((data) => {
+                if (data.success) {
+                    const registro = {
+                        nombre: data.aprendiz.nombre,
+                        numero_identidad: data.aprendiz.numero_identidad
+                    };
+                    registros.push(registro);
+                    registrados.push(aprendiz.id_aprendiz);
+                    renderRegistros();
+                    actualizarContadores();
+                    mostrarMensaje('Asistencia registrada');
+                } else {
+                    mostrarMensaje(data.mensaje || 'No se pudo registrar la asistencia.');
+                }
+            })
+            .catch(() => {
+                mostrarMensaje('No se pudo completar el registro.');
+            });
         }
 
+        btnTerminarSesion.addEventListener('click', () => {
+            fetch('../../terminar_sesion.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_sesion: sesionId })
+            })
+            .then((respuesta) => respuesta.json())
+            .then((data) => {
+                if (data.success) {
+                    desactivarLector();
+                    mostrarMensaje('Sesión finalizada correctamente.');
+                    setTimeout(() => {
+                        window.location.href = '../../Dashboard/Dashboard.html';
+                    }, 1000);
+                } else {
+                    mostrarMensaje(data.mensaje || 'No se pudo cerrar la sesión.');
+                }
+            })
+            .catch(() => {
+                mostrarMensaje('No se pudo cerrar la sesión.');
+            });
+        });
+
+        if (registrados.length > 0) {
+            const registrosIniciales = aprendices.filter((aprendiz) => registrados.includes(aprendiz.id_aprendiz));
+            registros = registrosIniciales.map((aprendiz) => ({
+                nombre: aprendiz.nombre,
+                numero_identidad: aprendiz.numero_identidad
+            }));
+            renderRegistros();
+            actualizarContadores();
+        } else {
+            renderRegistros();
+            actualizarContadores();
+        }
     </script>
 
 </body>

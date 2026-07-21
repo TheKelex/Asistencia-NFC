@@ -76,7 +76,7 @@ if ($queryInsert->execute()) {
     $queryInsert->close();
     $conexion->close();
     // Redirigir a la página de sesión activa.
-    header('Location: Sesion_Activa/Sesion.html');
+    header('Location: Sesion_Activa/Sesion.php');
     exit;
 }
 
