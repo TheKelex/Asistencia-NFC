@@ -51,7 +51,7 @@ function handleLogin(event) {
   //  .then(res => res.json())
   //  .then(data => {
   //    if (data.success) {
-  //      window.location.href = 'Dashboard/dashboard.html'; // o donde quieras
+  //      window.location.href = 'Dashboard/Dashboard.html'; // o donde quieras
   //    } else {
   //      showError(data.message || 'Credenciales incorrectas.');
   //    }
@@ -66,7 +66,7 @@ function handleLogin(event) {
     // Ejemplo: si el email termina en @sena.edu.co, entra
     if (email.endsWith('@sena.edu.co') && password.length >= 6) {
       // Login exitoso → redirige al dashboard
-      window.location.href = 'Dashboard/index.html';
+      window.location.href = 'Dashboard/Dashboard.html';
     } else {
       showError('Credenciales incorrectas. Intenta de nuevo.');
     }
