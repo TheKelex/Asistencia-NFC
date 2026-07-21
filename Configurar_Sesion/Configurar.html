@@ -227,7 +227,7 @@
 
         <div class="col-12 col-lg-10 p-4 contenido container-fluid">
 
-            <form action="./Sesion_Activa/Sesion.html" method="POST">
+            <form action="crear_sesion.php" method="POST">
 
 
 
@@ -294,7 +294,7 @@
 
                                     <label>Seleccione la Ficha</label>
 
-                                    <select class="seleccion p-2 rounded-3" required>
+                                    <select class="seleccion p-2 rounded-3" name="id_ficha" required>
 
                                         <option value="" selected disabled>Seleccionar Ficha</option>
                                         <option value="2873576">ADSO - 2873576 (Mañana)</option>
@@ -309,7 +309,7 @@
 
                                     <label>Seleccione la Competencia</label>
 
-                                    <select class="seleccion p-2 rounded-3" required>
+                                    <select class="seleccion p-2 rounded-3" name="id_competencia" required>
 
                                         <option value="" selected disabled>Seleccionar Competencia</option>
                                         <option value="220201501">Técnicas de Elicitación de Requisitos</option>
@@ -365,7 +365,7 @@
 
                                     </div>
 
-                                    <input type="range" min="0" max="30" step="5" id="tolerancia"
+                                    <input type="range" min="0" max="30" step="5" id="tolerancia" name="tolerancia"
                                         style="accent-color: #226D00 !important;">
 
                                     <!--Marcas para los numeros-->
