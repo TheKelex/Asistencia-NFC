@@ -113,9 +113,13 @@
                 <p class="small text-muted mb-0">Administra tu perfil, preferencias y lector NFC</p>
               </div>
             </div>
+            <form method="POST" action="cerrar_sesion.php" class="d-flex align-items-center gap-2">
+              <span class="material-symbols-outlined text-danger">logout</span>
+              <input class="boton-submit rounded-3 p-2 shadow" style="background-color:#ff0101; border:none; color:black;" type="submit" value="Cerrar Sesion">
             <div class="d-flex align-items-center gap-2">
-              <div class="avatar">DT</div>
+              <input class="boton-submit rounded-3 p-2 shadow" style="background-color:#ff0101; border:none; color:black;" type="submit" value="Cerrar Sesion">
             </div>
+            </form>
           </div>
         </header>
 
@@ -134,13 +138,7 @@
                 </div>
 
                 <!-- Grid interno de Bootstrap: organiza los campos del formulario en columnas responsivas. -->
-                <div class="row g-4 align-items-start">
-                  <div class="col-12 col-md-4 text-center">
-                    <div class="avatar-lg mx-auto mb-3">
-                      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=220&q=80" alt="Instructor" />
-                    </div>
-                    <button class="btn btn-outline-success rounded-pill btn-sm">Actualizar foto</button>
-                  </div>
+                <div class="row g-4 align-items-start justify-content-start">
                   <div class="col-12 col-md-8">
                     <div class="row g-3">
                       <div class="col-12 col-md-6">

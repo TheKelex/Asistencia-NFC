@@ -5,7 +5,7 @@
 session_start();
 
 
-require_once 'conexion.php';
+require_once '../conexion.php';
 
 // Validar método POST.
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

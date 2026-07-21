@@ -41,3 +41,15 @@ Este dia las tarjetas llegaron a Neiva y estan esperando para ser repartidas por
 #### domingo (20)
 
 se creo el front-end de ajustes y dashboard, quedan cosas por mejorar.
+
+#### jueves (21)
+
+Se adaptó el formulario de configuración de sesión para funcionar como una vista PHP dentro del proyecto y cargar sus opciones desde la base de datos MySQL usando mysqli. Los cambios realizados fueron:
+
+- Se convirtió el archivo de configuración a PHP para ejecutar consultas del lado del servidor.
+- Se consultaron las tablas ficha y competencia para llenar dinámicamente los select del formulario.
+- Se mantuvo la estructura visual y el diseño del frontend sin modificar CSS, clases ni componentes visuales.
+- Se actualizaron los enlaces de navegación para abrir la nueva vista PHP desde Dashboard y Ajustes.
+- Se verificó la sintaxis del archivo PHP con el intérprete de XAMPP.
+
+Este avance deja preparado el formulario para que el MVP pueda iniciar sesiones con datos reales obtenidos desde la base de datos.

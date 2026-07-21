@@ -1,7 +1,12 @@
 <?php
+// Archivo de configuración de sesión para el MVP de asistencia NFC.
+// Se adapta el formulario para cargar datos desde MySQL usando mysqli,
+// manteniendo intacto el diseño visual y la estructura del frontend.
 session_start();
-require_once 'conexion.php';
+require_once '../conexion.php';
 
+// Carga dinámica de fichas desde la tabla ficha.
+// El texto visible se muestra como: nombre_programa - id_ficha (jornada).
 $queryFichas = $conexion->query("SELECT id_ficha, nombre_programa, jornada FROM ficha ORDER BY nombre_programa ASC");
 $optionsFichas = '';
 
@@ -15,6 +20,8 @@ if ($queryFichas && $queryFichas->num_rows > 0) {
     $optionsFichas = '<option value="" selected disabled>No hay fichas registradas</option>';
 }
 
+// Carga dinámica de competencias desde la tabla competencia.
+// El texto visible corresponde al nombre de la competencia y el value al id_competencia.
 $queryCompetencias = $conexion->query("SELECT id_competencia, nombre FROM competencia ORDER BY nombre ASC");
 $optionsCompetencias = '';
 
@@ -90,7 +97,7 @@ $conexion->close();
             </a>
 
             <a class="d-flex gap-2 btn-accion-activo align-items-center py-3 rounded-3 text-decoration-none text-black"
-                href="#">
+                href="configurar.php">
 
                 <span class="material-symbols-outlined px-2" style="color:#226D00;">
                     event_seat
@@ -134,7 +141,7 @@ $conexion->close();
             </a>
 
             <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black"
-                href="#">
+                href="../Ajustes/Ajustes.html">
 
                 <span class="material-symbols-outlined px-2">
                     settings
@@ -235,7 +242,7 @@ $conexion->close();
 
                 <!--Ajustes-->
                 <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black"
-                    href="#">
+                    href="../Ajustes/Ajustes.html">
 
                     <span class="material-symbols-outlined px-2" style="color: gray;">
                         settings
@@ -328,6 +335,7 @@ $conexion->close();
                                     <select class="seleccion p-2 rounded-3" name="id_ficha" required>
 
                                         <?php echo $optionsFichas; ?>
+                                        <!-- Las opciones de la ficha se generan en PHP a partir de la tabla ficha. -->
 
                                     </select>
 
@@ -340,6 +348,7 @@ $conexion->close();
                                     <select class="seleccion p-2 rounded-3" name="id_competencia" required>
 
                                         <?php echo $optionsCompetencias; ?>
+                                        <!-- Las opciones de la competencia se generan en PHP a partir de la tabla competencia. -->
 
                                     </select>
 

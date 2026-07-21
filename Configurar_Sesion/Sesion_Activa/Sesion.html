@@ -396,19 +396,19 @@
 
                 <!--Div decorativo NFC-->
                 <div class="col-lg-4 col-12 p-2">
-                    <div class="bg-white rounded-3 p-3 d-flex flex-column h-100 align-items-center justify-content-center">
+                    <button id="btnNFC" class="btn bg-white rounded-3 p-3 d-flex flex-column h-100 align-items-center justify-content-center w-100 border-0">
 
-                        <center>
-                            <span class="material-symbols-outlined nfc-scan mb-3">
-                                contactless
-                            </span>
+                        <span id="iconoNFC" class="material-symbols-outlined nfc-scan-off mb-3">
+                            contactless_off
+                        </span>
 
-                            <h4 class="fw-bold">Acercar la Tarjeta del Aprendiz</h4>
+                        <h4 id="tituloNFC" class="fw-bold">Activar lector NFC</h4>
 
-                            <p class="text-secondary">Lector NFC Funcionando</p>
-                        </center>
+                        <p id="estadoNFC" class="text-secondary mb-0">
+                            Lector NFC desactivado
+                        </p>
 
-                    </div>
+                    </button>
                 </div>
 
                 <!--Div que muestra los registros de las personas-->
@@ -488,6 +488,147 @@
 
     <!--Scripts bootstrap-->
     <script src="../../Aparte/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+
+    <!--Script que ejecuta estilos para los estados del boton-->
+    <script>
+
+        // Obtiene los elementos mediante el id
+        const btnNFC = document.getElementById("btnNFC");
+        const icono = document.getElementById("iconoNFC");
+        const titulo = document.getElementById("tituloNFC");
+        const estado = document.getElementById("estadoNFC");
+
+        // Lo predefine como desactivado
+        let activo = false;
+
+        // Ejecuta la accion cuando se clickea el boton
+        btnNFC.addEventListener("click", ()=>{
+
+            // Lo cambia de estado
+            // True pasa a ser False
+            // False pasa a ser True
+            activo = !activo;
+
+            if(activo){
+
+                // Cambia el contenido del span que tiene el logo
+                icono.textContent = "contactless";
+                // Quita la clase
+                icono.classList.remove("nfc-scan-off");
+                // Añade la clase
+                icono.classList.add("nfc-scan");
+
+                // Cambia los textos
+                titulo.textContent = "Acercar la Tarjeta del Aprendiz";
+                estado.textContent = "Lector NFC Funcionando";
+
+                // Se llama la funcion
+                // Se nombran los valores
+                let ndef = null;
+                let lectorActivo = false;
+                activarLector();
+
+            }else{
+
+                // Cambia el contenido del span que tiene el logo
+                icono.textContent = "contactless_off";
+                // Quita la clase
+                icono.classList.remove("nfc-scan");
+                // Añade la clase
+                icono.classList.add("nfc-scan-off");
+
+                // Quita la clase
+                titulo.textContent = "Activar lector NFC";
+                estado.textContent = "Lector NFC desactivado";
+
+                // Se llama la funcion
+                desactivarLector();
+
+            }
+
+        });
+
+    </script>
+
+    <!--Script que ejecuta el lector NFC-->
+    <script>
+
+        async function activarLector() {
+
+        if (!("NDEFReader" in window)) {
+
+            estado.textContent = "Este dispositivo no soporta NFC.";
+            return;
+
+        }
+
+        try {
+
+            ndef = new NDEFReader();
+
+            await ndef.scan();
+
+            lectorActivo = true;
+
+            console.log("Lector NFC activado");
+
+            ndef.onreading = (event) => {
+
+                if (!lectorActivo) return;
+
+                const uid = event.serialNumber;
+
+                console.log("UID:", uid);
+
+                estado.textContent = "Tarjeta detectada";
+
+                registrar(uid); // Tu función para enviar el UID al PHP
+
+            };
+
+            ndef.onreadingerror = () => {
+
+                if (!lectorActivo) return;
+
+                estado.textContent = "No fue posible leer la tarjeta.";
+
+            };
+
+            } catch (error) {
+
+                console.error(error);
+
+                estado.textContent = "Error al activar el lector.";
+
+            }
+
+        }        
+
+    </script>
+
+    <!--Script para desactivar las lecturas-->
+    <script>
+
+        function desactivarLector() {
+
+            lectorActivo = false;
+
+            console.log("Lector NFC desactivado");
+
+        }
+
+    </script>
+
+    <!--Registrar el UID-->
+    <script>
+
+        function registrar(uid){
+
+            console.log(uid);
+
+        }
+
+    </script>
 
 </body>
 

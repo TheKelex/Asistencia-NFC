@@ -92,15 +92,43 @@ body {
 
 }
 
-.nfc-scan {
+/*Inicio estilos para el boton de NFC*/
+.nfc-scan,
+.nfc-scan-off{
 
     font-size: 3rem !important;
-    padding: 1rem;
-    color: white;
+    padding: 1rem !important;
     border-radius: 100%;
+    transition: all .3s ease;
+
+}
+
+.nfc-scan{
+
+    color: white;
     background-color: #226D00;
 
 }
+
+.nfc-scan-off{
+
+    color: white;
+    background-color: #BDBDBD;
+
+}
+
+#btnNFC{
+
+    transition: all .3s ease;
+
+}
+
+#btnNFC:hover{
+
+    transform: scale(1.02);
+
+}
+/*Fin de los estilos para el boton de NFC*/
 
 .icono-aprendiz {
 
