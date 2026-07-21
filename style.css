@@ -33,7 +33,7 @@ body {
 =========================== */
 .login-deco {
   flex: 1;
-  background: linear-gradient(145deg, #2563eb, #1e3a8a);
+  background-color: #226D00;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -271,8 +271,8 @@ body {
 }
 
 .custom-check input:checked + .checkmark {
-  background: #2563eb;
-  border-color: #2563eb;
+  background: #226D00;
+  border-color: #226D00;
 }
 
 .custom-check input:checked + .checkmark::after {
@@ -292,7 +292,7 @@ body {
 .btn-login {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background-color: #226D00;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -305,13 +305,13 @@ body {
   justify-content: center;
   gap: 8px;
   transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 4px 14px rgba(83, 235, 37, 0.35);
 }
 
 .btn-login:hover {
   opacity: 0.93;
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 6px 18px rgba(70, 235, 37, 0.4);
 }
 
 .btn-login:active {
