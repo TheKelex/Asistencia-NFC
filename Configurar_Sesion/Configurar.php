@@ -1,3 +1,34 @@
+<?php
+session_start();
+require_once 'conexion.php';
+
+$queryFichas = $conexion->query("SELECT id_ficha, nombre_programa, jornada FROM ficha ORDER BY nombre_programa ASC");
+$optionsFichas = '';
+
+if ($queryFichas && $queryFichas->num_rows > 0) {
+    $optionsFichas .= '<option value="" selected disabled>Seleccionar Ficha</option>';
+    while ($ficha = $queryFichas->fetch_assoc()) {
+        $labelFicha = $ficha['nombre_programa'] . ' - ' . $ficha['id_ficha'] . ' (' . $ficha['jornada'] . ')';
+        $optionsFichas .= '<option value="' . htmlspecialchars($ficha['id_ficha'], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($labelFicha, ENT_QUOTES, 'UTF-8') . '</option>';
+    }
+} else {
+    $optionsFichas = '<option value="" selected disabled>No hay fichas registradas</option>';
+}
+
+$queryCompetencias = $conexion->query("SELECT id_competencia, nombre FROM competencia ORDER BY nombre ASC");
+$optionsCompetencias = '';
+
+if ($queryCompetencias && $queryCompetencias->num_rows > 0) {
+    $optionsCompetencias .= '<option value="" selected disabled>Seleccionar Competencia</option>';
+    while ($competencia = $queryCompetencias->fetch_assoc()) {
+        $optionsCompetencias .= '<option value="' . htmlspecialchars($competencia['id_competencia'], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($competencia['nombre'], ENT_QUOTES, 'UTF-8') . '</option>';
+    }
+} else {
+    $optionsCompetencias = '<option value="" selected disabled>No hay competencias registradas</option>';
+}
+
+$conexion->close();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -92,7 +123,7 @@
             </a>
 
             <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
-                href="../Registrar_Aprendices/Registrar.html">
+                href="#">
 
                 <span class="material-symbols-outlined px-2">
                     group
@@ -103,7 +134,7 @@
             </a>
 
             <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black"
-                href="../Ajustes/Ajustes.html">
+                href="#">
 
                 <span class="material-symbols-outlined px-2">
                     settings
@@ -192,7 +223,7 @@
                 </a>
 
                 <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black"
-                    href="../Registrar_Aprendices/Registrar.html">
+                    href="#">
 
                     <span class="material-symbols-outlined px-2">
                         group
@@ -204,7 +235,7 @@
 
                 <!--Ajustes-->
                 <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black"
-                    href="../Ajustes/Ajustes.html">
+                    href="#">
 
                     <span class="material-symbols-outlined px-2" style="color: gray;">
                         settings
@@ -296,10 +327,7 @@
 
                                     <select class="seleccion p-2 rounded-3" name="id_ficha" required>
 
-                                        <option value="" selected disabled>Seleccionar Ficha</option>
-                                        <option value="2873576">ADSO - 2873576 (Mañana)</option>
-                                        <option value="3413534">ADSO - 3413534 (Tarde)</option>
-                                        <option value="3413975">ADSO - 3413975 (Noche)</option>
+                                        <?php echo $optionsFichas; ?>
 
                                     </select>
 
@@ -311,9 +339,7 @@
 
                                     <select class="seleccion p-2 rounded-3" name="id_competencia" required>
 
-                                        <option value="" selected disabled>Seleccionar Competencia</option>
-                                        <option value="220201501">Técnicas de Elicitación de Requisitos</option>
-                                        <option value="220601501">Lógica de Programación</option>
+                                        <?php echo $optionsCompetencias; ?>
 
                                     </select>
 

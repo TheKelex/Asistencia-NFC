@@ -4,12 +4,6 @@
 
 session_start();
 
-// Verificar que el usuario haya iniciado sesión.
-if (empty($_SESSION['usuario'])) {
-    // Redirigir a login o mostrar mensaje según tu flujo.
-    header('Location: ../index.html');
-    exit;
-}
 
 require_once 'conexion.php';
 
