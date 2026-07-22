@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendices — Asistencia NFC</title>
+
+    <link rel="stylesheet" href="./style.css"></link>
+    <link rel="stylesheet" href="../Aparte/bootstrap-5.3.8-dist/css/bootstrap.css"></link> <!--Bootstrap CSS-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <!--Google Icons-->
+
+</head>
+
+<body>
+
+    <!--================= Inicio menu offcanvas (celulares) =================-->
+    <div class="offcanvas offcanvas-start w-50" tabindex="-1" id="menuMovil">
+
+        <div class="offcanvas-header">
+            <div class="d-flex gap-2 align-items-center">
+                <span class="material-symbols-outlined logo-nfc p-2 text-white rounded-3">nfc</span>
+                <div>
+                    <h5 class="m-0" style="color:#226D00;">Asistencia</h5>
+                    <small>Sistema NFC</small>
+                </div>
+            </div>
+            <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body d-flex flex-column gap-3">
+
+            <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <span class="material-symbols-outlined px-2">dashboard</span>
+                Dashboard
+            </a>
+
+            <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <span class="material-symbols-outlined px-2">event_seat</span>
+                Sesión
+            </a>
+
+            <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <span class="material-symbols-outlined px-2">history</span>
+                Historial
+            </a>
+
+            <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <span class="material-symbols-outlined px-2">analytics</span>
+                Reportes
+            </a>
+
+            <a class="d-flex gap-2 btn-accion-activo align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <span class="material-symbols-outlined px-2" style="color:#226D00;">group</span>
+                Aprendices
+            </a>
+
+            <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                <span class="material-symbols-outlined px-2">settings</span>
+                Ajustes
+            </a>
+
+        </div>
+    </div>
+    <!--================= Fin menu offcanvas =================-->
+
+
+    <!--Row padre para la division del menu sticky-->
+    <div class="row w-100 g-0">
+
+        <!--================= Inicio menu sticky =================-->
+        <div class="col-lg-2 d-none d-lg-flex p-4 menu-sticky shadow flex-column">
+
+            <!--Nombre sistema / logo-->
+            <div class="d-flex gap-2 mb-5 align-items-center">
+                <span class="material-symbols-outlined logo-nfc p-2 text-white rounded-3">nfc</span>
+                <div class="p-0">
+                    <h4 class="p-0 m-0" style="color: #226D00;">Asistencia</h4>
+                    <p class="p-0 m-0" style="font-size: 0.8rem;">Sistema NFC</p>
+                </div>
+            </div>
+
+            <!--Bloque opciones-->
+            <div class="d-flex flex-column flex-grow-1 gap-3">
+
+                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                    <span class="material-symbols-outlined px-2">dashboard</span>
+                    <p class="my-auto">Dashboard</p>
+                </a>
+
+                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                    <span class="material-symbols-outlined px-2">event_seat</span>
+                    <p class="my-auto">Sesión</p>
+                </a>
+
+                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                    <span class="material-symbols-outlined px-2">history</span>
+                    <p class="my-auto">Historial</p>
+                </a>
+
+                <a class="d-flex gap-2 btn-accion align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                    <span class="material-symbols-outlined px-2">analytics</span>
+                    <p class="my-auto">Reportes</p>
+                </a>
+
+                <!--Activo-->
+                <a class="d-flex gap-2 btn-accion-activo align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                    <span class="material-symbols-outlined px-2" style="color: #226D00;">group</span>
+                    <p class="my-auto">Aprendices</p>
+                </a>
+
+                <!--Ajustes-->
+                <a class="d-flex gap-2 btn-accion mt-auto align-items-center py-3 rounded-3 text-decoration-none text-black" href="#">
+                    <span class="material-symbols-outlined px-2" style="color: gray;">settings</span>
+                    <p class="my-auto" style="color: gray;">Ajustes</p>
+                </a>
+
+            </div>
+        </div>
+        <!--================= Fin menu sticky =================-->
+
+
+        <!--================= Inicio del contenido =================-->
+        <div class="col-12 col-lg-10 p-4 contenido container-fluid">
+
+            <!--Boton menu offcanvas (solo celulares)-->
+            <div class="d-lg-none mb-4">
+                <button class="btn text-white d-flex align-items-center gap-2"
+                    data-bs-toggle="offcanvas" data-bs-target="#menuMovil"
+                    style="background-color: #226D00;">
+                    <span class="material-symbols-outlined">menu</span>
+                    Menú
+                </button>
+            </div>
+
+
+            <!--Encabezado de la pagina-->
+            <div class="d-flex align-items-center justify-content-between mb-1 flex-wrap gap-3">
+
+                <div class="d-flex gap-2 align-items-center">
+                    <span class="material-symbols-outlined p-2 fs-2 rounded-3" style="color: #226D00;">group</span>
+                    <div class="p-0">
+                        <h3 class="p-0 m-0">Directorio de Aprendices</h3>
+                    </div>
+                </div>
+
+                <button class="btn text-white d-flex align-items-center gap-2"
+                    style="background-color: #226D00;"
+                    data-bs-toggle="modal" data-bs-target="#modalRegistrar">
+                    <span class="material-symbols-outlined">person_add</span>
+                    Registrar Aprendiz
+                </button>
+
+            </div>
+
+            <p class="px-2 text-secondary mb-4">Gestiona matrículas, estado NFC y registros de asistencia.</p>
+
+
+            <!--Filtros-->
+            <div class="d-flex gap-2 mb-3 flex-wrap">
+
+                <select id="filtroFicha" class="seleccion p-2 rounded-3" onchange="filtrarTabla()">
+                    <option value="">Todas las Fichas</option>
+                    <option value="2551012">Ficha 2551012</option>
+                    <option value="2551013">Ficha 2551013</option>
+                    <option value="2551014">Ficha 2551014</option>
+                </select>
+
+                <select id="filtroEstado" class="seleccion p-2 rounded-3" onchange="filtrarTabla()">
+                    <option value="">Todos los Estados</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+
+                <div class="ms-auto">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white" style="border: 1px solid #e6efe2;">
+                            <span class="material-symbols-outlined" style="font-size:1.1rem;">search</span>
+                        </span>
+                        <input type="text" id="buscador" class="form-control"
+                            placeholder="Buscar aprendiz o ID..."
+                            style="border: 1px solid #e6efe2; border-left:none;"
+                            oninput="filtrarTabla()">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!--Tabla de aprendices-->
+            <div class="caja rounded-3 overflow-hidden">
+
+                <table class="table mb-0 align-middle">
+                    <thead style="background-color: #f8faf7;">
+                        <tr>
+                            <th class="py-3 px-3" style="color:#226D00; font-size:0.8rem; text-transform:uppercase; letter-spacing:.05em;">Aprendiz</th>
+                            <th class="py-3" style="color:#226D00; font-size:0.8rem; text-transform:uppercase; letter-spacing:.05em;">Número ID</th>
+                            <th class="py-3" style="color:#226D00; font-size:0.8rem; text-transform:uppercase; letter-spacing:.05em;">Ficha</th>
+                            <th class="py-3" style="color:#226D00; font-size:0.8rem; text-transform:uppercase; letter-spacing:.05em;">Estado NFC</th>
+                            <th class="py-3" style="color:#226D00; font-size:0.8rem; text-transform:uppercase; letter-spacing:.05em;">Asistencia</th>
+                            <th class="py-3" style="color:#226D00; font-size:0.8rem; text-transform:uppercase; letter-spacing:.05em;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                        <!--Filas generadas por JS-->
+                    </tbody>
+                </table>
+
+                <!--Pie de tabla-->
+                <div class="d-flex justify-content-between align-items-center px-3 py-2"
+                    style="border-top: 1px solid #e6efe2; background-color: #f8faf7;">
+                    <small class="text-secondary" id="infoTabla">Mostrando 1–5 de 8 aprendices</small>
+                    <div class="d-flex gap-1" id="paginacion"></div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--================= Fin del contenido =================-->
+
+    </div>
+
+
+    <!--================= Modal Registrar Aprendiz =================-->
+    <div class="modal fade" id="modalRegistrar" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header" style="border-bottom: 1px solid #e6efe2;">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined" style="color:#226D00;">person_add</span>
+                        <h5 class="modal-title m-0">Nuevo Aprendiz</h5>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="formRegistrar">
+                        <div class="row g-3">
+
+                            <div class="col-6 d-flex flex-column gap-1">
+                                <label>Nombre</label>
+                                <input type="text" id="fNombre" class="seleccion p-2 rounded-3"
+                                    placeholder="Ej. Ana" required>
+                            </div>
+
+                            <div class="col-6 d-flex flex-column gap-1">
+                                <label>Apellido</label>
+                                <input type="text" id="fApellido" class="seleccion p-2 rounded-3"
+                                    placeholder="Ej. García" required>
+                            </div>
+
+                            <div class="col-12 d-flex flex-column gap-1">
+                                <label>Número de Identificación</label>
+                                <input type="text" id="fID" class="seleccion p-2 rounded-3"
+                                    placeholder="Ej. 1098273650" required>
+                            </div>
+
+                            <div class="col-6 d-flex flex-column gap-1">
+                                <label>Ficha</label>
+                                <select id="fFicha" class="seleccion p-2 rounded-3" required>
+                                    <option value="" disabled selected>Seleccionar...</option>
+                                    <option value="2551012">Ficha 2551012</option>
+                                    <option value="2551013">Ficha 2551013</option>
+                                    <option value="2551014">Ficha 2551014</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6 d-flex flex-column gap-1">
+                                <label>Estado NFC</label>
+                                <select id="fEstado" class="seleccion p-2 rounded-3">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 d-flex flex-column gap-1">
+                                <label>Correo electrónico</label>
+                                <input type="email" id="fEmail" class="seleccion p-2 rounded-3"
+                                    placeholder="aprendiz@sena.edu.co">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer" style="border-top: 1px solid #e6efe2;">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn text-white" style="background-color:#226D00;"
+                        onclick="guardarAprendiz()">
+                        <span class="material-symbols-outlined" style="font-size:1rem; vertical-align:middle;">save</span>
+                        Guardar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--================= Fin Modal =================-->
+
+
+    <!--================= Scripts =================-->
+    <script src="../Aparte/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+
+    <script>
+
+        // ── Datos de ejemplo ──
+        const coloresAvatar = ['#226D00','#6366f1','#f97316','#3b82f6','#a855f7','#ec4899','#14b8a6'];
+
+        let aprendices = [
+            { nombre:'Jane Doe',       id:'1098273645', ficha:'2551012', estado:'Activo',    asistencia:95 },
+            { nombre:'Alex Smith',     id:'1098273646', ficha:'2551012', estado:'Pendiente', asistencia:78 },
+            { nombre:'Robert Johnson', id:'1098273647', ficha:'2551013', estado:'Inactivo',  asistencia:45 },
+            { nombre:'Laura Ospina',   id:'1098273648', ficha:'2551012', estado:'Activo',    asistencia:88 },
+            { nombre:'Carlos Ruiz',    id:'1098273649', ficha:'2551014', estado:'Activo',    asistencia:72 },
+            { nombre:'María López',    id:'1098273650', ficha:'2551013', estado:'Pendiente', asistencia:60 },
+            { nombre:'Juan Pérez',     id:'1098273651', ficha:'2551012', estado:'Activo',    asistencia:91 },
+            { nombre:'Sofía Torres',   id:'1098273652', ficha:'2551014', estado:'Inactivo',  asistencia:30 },
+        ];
+
+        const POR_PAGINA = 5;
+        let pagina = 1;
+        let filtrados = [...aprendices];
+
+        // Iniciales del nombre
+        function iniciales(nombre) {
+            return nombre.split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase();
+        }
+
+        // Color determinista por nombre
+        function colorAvatar(nombre) {
+            let h = 0;
+            for (let c of nombre) h = (h * 31 + c.charCodeAt(0)) & 0xffff;
+            return coloresAvatar[h % coloresAvatar.length];
+        }
+
+        // Badge de estado
+        function badgeEstado(estado) {
+            const cfg = {
+                'Activo':    { bg:'#e6f4e0', color:'#226D00', dot:'#226D00' },
+                'Pendiente': { bg:'#fff3e0', color:'#e65100', dot:'#f97316' },
+                'Inactivo':  { bg:'#fdecea', color:'#c62828', dot:'#ef4444' },
+            };
+            const c = cfg[estado] || cfg['Inactivo'];
+            return `<span class="d-inline-flex align-items-center gap-1 px-2 py-1 rounded-3 fw-semibold"
+                        style="background:${c.bg}; color:${c.color}; font-size:0.78rem;">
+                        <span style="width:6px;height:6px;border-radius:50%;background:${c.dot};display:inline-block;"></span>
+                        ${estado}
+                    </span>`;
+        }
+
+        // Barra de asistencia
+        function barraAsistencia(pct) {
+            const color = pct >= 80 ? '#226D00' : pct >= 60 ? '#f97316' : '#ef4444';
+            return `<div class="d-flex align-items-center gap-2">
+                        <div style="width:80px;height:6px;background:#e6efe2;border-radius:10px;overflow:hidden;">
+                            <div style="width:${pct}%;height:100%;background:${color};border-radius:10px;"></div>
+                        </div>
+                        <small class="fw-semibold">${pct}%</small>
+                    </div>`;
+        }
+
+        // Renderizar tabla
+        function renderTabla() {
+            const inicio = (pagina - 1) * POR_PAGINA;
+            const pagActual = filtrados.slice(inicio, inicio + POR_PAGINA);
+            const tbody = document.getElementById('cuerpoTabla');
+
+            tbody.innerHTML = pagActual.map((a, i) => `
+                <tr style="border-bottom: 1px solid #e6efe2;">
+                    <td class="px-3 py-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold"
+                                style="width:36px;height:36px;background:${colorAvatar(a.nombre)};font-size:0.8rem;flex-shrink:0;">
+                                ${iniciales(a.nombre)}
+                            </div>
+                            <span class="fw-semibold">${a.nombre}</span>
+                        </div>
+                    </td>
+                    <td class="text-secondary">${a.id}</td>
+                    <td>Ficha ${a.ficha}</td>
+                    <td>${badgeEstado(a.estado)}</td>
+                    <td>${barraAsistencia(a.asistencia)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-light d-flex align-items-center gap-1"
+                            style="border: 1px solid #e6efe2;"
+                            onclick="editarAprendiz(${inicio + i})">
+                            <span class="material-symbols-outlined" style="font-size:0.9rem;">edit</span>
+                            Editar
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+
+            document.getElementById('infoTabla').textContent =
+                `Mostrando ${inicio + 1}–${Math.min(inicio + POR_PAGINA, filtrados.length)} de ${filtrados.length} aprendices`;
+
+            renderPaginacion();
+        }
+
+        // Renderizar paginación
+        function renderPaginacion() {
+            const total = Math.ceil(filtrados.length / POR_PAGINA);
+            const pg = document.getElementById('paginacion');
+            let html = '';
+
+            for (let i = 1; i <= total; i++) {
+                const activo = i === pagina;
+                html += `<button class="btn btn-sm ${activo ? 'text-white' : 'btn-light'}"
+                    style="${activo ? 'background-color:#226D00;' : 'border:1px solid #e6efe2;'}"
+                    onclick="irPagina(${i})">${i}</button>`;
+            }
+
+            pg.innerHTML = html;
+        }
+
+        function irPagina(n) {
+            const total = Math.ceil(filtrados.length / POR_PAGINA);
+            if (n < 1 || n > total) return;
+            pagina = n;
+            renderTabla();
+        }
+
+        // Filtrar tabla
+        function filtrarTabla() {
+            const q      = document.getElementById('buscador').value.toLowerCase();
+            const ficha  = document.getElementById('filtroFicha').value;
+            const estado = document.getElementById('filtroEstado').value;
+
+            filtrados = aprendices.filter(a =>
+                (!q      || a.nombre.toLowerCase().includes(q) || a.id.includes(q)) &&
+                (!ficha  || a.ficha === ficha) &&
+                (!estado || a.estado === estado)
+            );
+            pagina = 1;
+            renderTabla();
+        }
+
+        // Guardar nuevo aprendiz
+        function guardarAprendiz() {
+            const nombre  = document.getElementById('fNombre').value.trim();
+            const apellido= document.getElementById('fApellido').value.trim();
+            const id      = document.getElementById('fID').value.trim();
+            const ficha   = document.getElementById('fFicha').value;
+            const estado  = document.getElementById('fEstado').value;
+
+            if (!nombre || !apellido || !id || !ficha) return;
+
+            aprendices.push({ nombre: `${nombre} ${apellido}`, id, ficha, estado, asistencia: 0 });
+            filtrados = [...aprendices];
+            pagina = Math.ceil(filtrados.length / POR_PAGINA);
+            renderTabla();
+
+            document.getElementById('formRegistrar').reset();
+            bootstrap.Modal.getInstance(document.getElementById('modalRegistrar')).hide();
+        }
+
+        // Editar aprendiz (pre-carga el modal)
+        function editarAprendiz(idx) {
+            const a = filtrados[idx];
+            const partes = a.nombre.split(' ');
+            document.getElementById('fNombre').value   = partes[0] || '';
+            document.getElementById('fApellido').value = partes.slice(1).join(' ') || '';
+            document.getElementById('fID').value       = a.id;
+            document.getElementById('fFicha').value    = a.ficha;
+            document.getElementById('fEstado').value   = a.estado;
+            new bootstrap.Modal(document.getElementById('modalRegistrar')).show();
+        }
+
+        // Inicializar
+        renderTabla();
+
+    </script>
+
+</body>
+
+</html>
